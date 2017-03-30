@@ -19,8 +19,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.2.2'
   s.require_paths = ['src/lib']
-  s.bindir        = 'src/bin'
-  s.executables   = ['#{@name}']
   s.files         = Dir.glob('src/**/**.rb') + \
                     Dir.glob('src/**/version_info.yml')
 
