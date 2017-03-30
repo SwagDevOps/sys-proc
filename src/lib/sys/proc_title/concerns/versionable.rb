@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 require 'pathname'
-require 'active_support/concern'
 require 'active_support/inflector'
 require 'version_info'
+
+require 'sys/proc_title/concerns'
 
 # Provides a standardized way to use ``VersionInfo``
 #
 # Define ``VERSION_PATH_LEVELS`` in order to suit your needs
-module Sys::ProcTitle::Versionable
+module Sys::ProcTitle::Concerns::Versionable
   extend ActiveSupport::Concern
 
   included do

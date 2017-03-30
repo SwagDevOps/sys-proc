@@ -10,5 +10,5 @@ class Sys::ProcTitle
   require 'sys/proc_title/concerns/versionable'
 
   VERSION_PATH_LEVELS = 3
-  include Versionable
+  include Concerns::Versionable
 end
