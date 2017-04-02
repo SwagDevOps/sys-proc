@@ -1,0 +1,25 @@
+# see:
+# http://relaxed.ruby.style/
+# https://github.com/bbatsov/rubocop/tree/master/config
+# https://raw.githubusercontent.com/bbatsov/rubocop/master/config/enabled.yml
+#
+# cat .rubocop.yml | egrep '^[A-Z][a-z]' | sort -u
+
+AllCops: { DisplayCopNames: true }
+
+Lint/UnusedBlockArgument: { Enabled: false }
+
+Metrics/AbcSize: { Max: 20 }
+Metrics/CyclomaticComplexity: { Max: 10 }
+
+Style/AndOr: { Enabled: false }
+Style/ClassAndModuleChildren: { Enabled: false }
+Style/DoubleNegation: { Enabled: false }
+Style/Encoding: { Enabled: false }
+Style/FormatString: { Enabled: false }
+Style/IfUnlessModifier: { Enabled: false }
+Style/MultilineBlockChain: { Enabled: false }
+Style/RedundantReturn: { Enabled: false }
+Style/RedundantSelf: { Enabled: false }
+Style/Send: { Enabled: true }
+Style/TrailingCommaInLiteral: { Enabled: false }
