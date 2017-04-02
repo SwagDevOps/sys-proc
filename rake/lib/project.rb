@@ -4,7 +4,9 @@ class Project
   class << self
     # @return [Symbol]
     def name
-      'sys-proc'.to_sym
+      require 'dotenv/load'
+
+      ENV.fetch('PROJECT_NAME').to_sym
     end
 
     # Main class (subject of project)
