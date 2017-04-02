@@ -4,12 +4,12 @@ require 'pathname'
 require 'active_support/inflector'
 require 'version_info'
 
-require 'sys/proc_title/concerns'
+require 'sys/proc/concerns'
 
 # Provides a standardized way to use ``VersionInfo``
 #
 # Define ``VERSION_PATH_LEVELS`` in order to suit your needs
-module Sys::ProcTitle::Concerns::Versionable
+module Sys::Proc::Concerns::Versionable
   extend ActiveSupport::Concern
 
   included do

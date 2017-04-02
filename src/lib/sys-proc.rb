@@ -5,4 +5,4 @@ require 'pathname'
 
 $LOAD_PATH.unshift Pathname.new(__dir__)
 
-require 'sys/proc_title'
+require 'sys/proc'

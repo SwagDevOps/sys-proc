@@ -2,6 +2,6 @@
 
 require 'active_support/concern'
 
-module Sys::ProcTitle::Concerns
+module Sys::Proc::Concerns
 
 end

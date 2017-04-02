@@ -4,7 +4,7 @@ class Project
   class << self
     # @return [Symbol]
     def name
-      'sys-proc_title'.to_sym
+      'sys-proc'.to_sym
     end
 
     # Main class (subject of project)
