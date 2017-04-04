@@ -10,6 +10,7 @@ gem 'version_info', '~> 1.9'
 
 group :development do
   gem 'rake', '~> 11.3'
+  gem 'pry', '~> 0.10'
   gem 'dotenv', '~> 2.2'
   gem 'cliver', '= 0.3.2'
   gem 'rubocop', '~> 0.47'
