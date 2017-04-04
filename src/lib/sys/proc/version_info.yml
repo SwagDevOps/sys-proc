@@ -5,12 +5,12 @@ patch: 1
 authors: ['Dimitri Arrigoni']
 email: 'dimitri@arrigoni.me'
 date: '2017-03-29'
-summary: 'An interface providing process renaming'
-description: null
+summary: 'An interface providing cross-platform process operations'
+description: 'An interface providing cross-platform process operations'
 licenses: ['GPL-3.0']
 license: 'Copyright (C) 2017 Dimitri Arrigoni <dimitri@arrigoni.me>
 License GPLv3+: GNU GPL version 3 or later
 <http://www.gnu.org/licenses/gpl.html>.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.'
-homepage: 'https://github.com/SwagDevOps/ruby-grouik'
+homepage: 'https://github.com/SwagDevOps/ruby-sys-proc'
