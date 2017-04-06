@@ -15,8 +15,11 @@ group :development do
   gem 'gemspec_deps_gen', '= 1.1.2'
   gem 'tenjin', '~> 0.7'
   gem 'rainbow', '~> 2.2'
-  # Github Flavored Markdown in YARD
+end
+
+group :doc, :development do
   gem 'yard', '~> 0.9'
+  # Github Flavored Markdown in YARD
   gem 'redcarpet', '~> 3.4'
   gem 'github-markup', '~> 1.4'
 end
