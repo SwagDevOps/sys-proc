@@ -20,3 +20,7 @@ group :development do
   gem 'redcarpet', '~> 3.4'
   gem 'github-markup', '~> 1.4'
 end
+
+group :test, :development do
+  gem 'rspec', '~> 3.4'
+end
