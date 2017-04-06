@@ -2,7 +2,7 @@
 
 require 'pp'
 
-# The Sys module serves as a namespace only
+# The Sys module is only used as a namespace
 module Sys
 end
 
@@ -12,37 +12,46 @@ end
 # @see http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html
 class Sys::Proc
   require 'singleton'
-  require 'sys/proc/concerns/versionable'
+  %i{versionable system static_instance}.each do |req|
+    require "sys/proc/concerns/#{req}"
+  end
 
   VERSION_PATH_LEVELS = 3
+
   include ::Singleton
   include Concerns::Versionable
-
-  def pid
-    $$
-  end
-
-  def host_os
-    (RbConfig::CONFIG['host_os'] || 'unknown').gsub(/-gnu$/, '')
-  end
+  include Concerns::StaticInstance
+  include Concerns::System
 
   class << self
-    # Provides access to instance methods
-    def method_missing(method, *args, &block)
-      if respond_to_missing?(method)
-        instance.public_send(method, *args, &block)
-      else
-        super
-      end
+    # Get available methods
+    #
+    # @return [Array<Symbol>]
+    def methods
+      super() + instance.methods
     end
 
-    def respond_to_missing?(method, include_private = false)
-      result = instance.respond_to?(method)
-      unless result
-        return super if include_private
-      end
-
-      result
+    # Get available public methods
+    #
+    # @return [Array<Symbol>]
+    def public_methods
+      super() + instance.public_methods
     end
+  end
+
+  def pid
+    $PROCESS_ID
+  end
+
+  # Sets process title
+  #
+  def name=(name)
+    set_name(name) if methods.include? :set_name
+
+    name
+  end
+
+  def name
+    #
   end
 end
