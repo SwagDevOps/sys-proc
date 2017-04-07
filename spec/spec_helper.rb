@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require 'pp'
+require 'rspec/sleeping_king_studios/matchers/core/all'
+
 # Sample of use:
 #
 # ~~~~
