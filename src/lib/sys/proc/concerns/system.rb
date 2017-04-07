@@ -15,10 +15,15 @@ module Sys::Proc::Concerns::System
     end
   end
 
+  # Identify operating system
+  #
+  # @return [Symbol]
   def host_os
-    (RbConfig::CONFIG['host_os'] || 'generic').tr('-', '_')
+    (RbConfig::CONFIG['host_os'] || 'generic').tr('-', '_').to_sym
   end
 
+  # Get operating system related concern
+  #
   # @return [Module]
   def system_concern
     ["sys/proc/concerns/system/#{host_os}",
@@ -35,6 +40,7 @@ module Sys::Proc::Concerns::System
 
   protected
 
+  # @return [ActiveSupport::Inflector]
   def inflector
     require 'active_support/inflector'
 
