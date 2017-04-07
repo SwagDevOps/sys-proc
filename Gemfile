@@ -26,4 +26,5 @@ end
 
 group :test, :development do
   gem 'rspec', '~> 3.4'
+  gem 'rspec-sleeping_king_studios', '~> 2.1.1'
 end
