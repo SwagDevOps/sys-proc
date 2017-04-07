@@ -8,6 +8,7 @@
 desc 'Run test suites'
 task :test, [:tag] do |task, args|
   options = ['-c',
+             '--pattern', 'spec/**/*_spec.rb',
              '-f', 'progress',
              '-r', '%s/spec/spec_helper' % Dir.pwd]
 
