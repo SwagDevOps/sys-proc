@@ -17,12 +17,9 @@ module Sys::Proc::Concerns::StaticInstance
     end
 
     def respond_to_missing?(method, include_private = false)
-      result = instance.respond_to?(method)
-      unless result
-        return super if include_private
-      end
+      return true if instance.respond_to?(method, include_private)
 
-      result
+      super(method, include_private)
     end
   end
 end
