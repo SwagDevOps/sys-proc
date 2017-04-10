@@ -7,13 +7,7 @@ module Sys::Proc::Concerns::System
   extend ActiveSupport::Concern
 
   # Related concern is included recursively
-  included do
-    if system_concern
-      include system_concern
-    else
-      raise NotImplementedError, "Not implemented '#{host_os}'"
-    end
-  end
+  included { include system_concern }
 
   # Identify operating system
   #
@@ -26,24 +20,24 @@ module Sys::Proc::Concerns::System
   #
   # @return [Module]
   def system_concern
-    ["sys/proc/concerns/system/#{host_os}",
-     "sys/proc/concerns/system/generic"].each do |r|
-      begin
-        require r.to_s
+    r = "sys/proc/concerns/system/#{host_os}"
 
-        return inflector.constantize(inflector.classify(r))
-      rescue LoadError
-      rescue NameError
-      end
-    end
+    return load_class(r)
+  rescue LoadError => e
+    raise unless /^cannot load such file -- #{Regexp.quote(r)}/ =~ e.to_s
+
+    return load_class('sys/proc/concerns/system/generic')
   end
 
   protected
 
-  # @return [ActiveSupport::Inflector]
-  def inflector
+  # @todo use an helper instead
+  # @return [Class]
+  def load_class(r)
     require 'active_support/inflector'
+    require r
 
-    ActiveSupport::Inflector
+    inflector = ActiveSupport::Inflector
+    inflector.constantize(inflector.classify(r))
   end
 end
