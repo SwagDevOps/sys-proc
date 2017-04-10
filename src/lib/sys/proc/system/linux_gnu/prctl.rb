@@ -15,7 +15,7 @@ require 'sys/proc/system/linux_gnu'
 # int prctl(int option, unsigned long arg2, unsigned long arg3,
 #           unsigned long arg4, unsigned long arg5);
 # ~~~~
-class Sys::Proc::Os::LinuxGnu::Prctl
+class Sys::Proc::System::LinuxGnu::Prctl
   attr_reader :function
 
   # Set the name of the calling threadThe attribute is
@@ -40,7 +40,7 @@ class Sys::Proc::Os::LinuxGnu::Prctl
     name ||= Pathname.new($PROGRAM_NAME).basename('.rb').to_s
     name = name.to_s
 
-    return false unless prctl(PR_SET_NAME, name).zero?
+    return false unless call(PR_SET_NAME, name).zero?
 
     $PROGRAM_NAME = name
     true
@@ -52,7 +52,7 @@ class Sys::Proc::Os::LinuxGnu::Prctl
   def get_name
     ptr = Fiddle::Pointer.malloc(32, Fiddle::RUBY_FREE.to_i)
 
-    prctl(PR_GET_NAME, ptr.to_i)
+    call(PR_GET_NAME, ptr.to_i)
     ptr.to_s
   end
 

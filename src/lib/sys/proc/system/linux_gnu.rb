@@ -3,6 +3,6 @@
 require 'sys/proc/system'
 
 # GNU/Linux specific namespace
-module Sys::Proc::Sytem::LinuxGnu
+module Sys::Proc::System::LinuxGnu
 
 end
