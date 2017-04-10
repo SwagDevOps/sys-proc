@@ -12,7 +12,7 @@ end
 # instance methods are available as class methods
 [Sys::Proc.instance, Sys::Proc].each do |subject|
   describe subject do
-    [:pid, :name, 'name=', :host_os].each do |method|
+    [:pid, :title, 'title=', :host_os].each do |method|
       it { expect(subject).to respond_to(method) }
     end
   end
