@@ -45,13 +45,13 @@ class Sys::Proc
 
   # Sets process title
   #
-  def name=(name)
-    set_name(name) if methods.include? :set_name
+  def title=(title)
+    title = title.to_s.freeze
 
-    name
-  end
+    $PROGRAM_NAME = title
+  end unless methods.include?('title='.to_sym)
 
-  def name
-    #
-  end
+  def title
+    $PROGRAM_NAME
+  end unless methods.include?(:title)
 end
