@@ -3,6 +3,8 @@
 require 'sys/proc/concerns'
 
 # Provides Operating System related methods
+#
+# This ``Concern`` loads system (OS) related sub-concern (specialisation)
 module Sys::Proc::Concerns::System
   extend ActiveSupport::Concern
 
