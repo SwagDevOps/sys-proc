@@ -12,7 +12,7 @@ module Sys::Proc::Concerns::System
   # Identify operating system
   #
   # @return [Symbol]
-  def host_os
+  def system
     (RbConfig::CONFIG['host_os'] || 'generic').tr('-', '_').to_sym
   end
 
@@ -20,7 +20,7 @@ module Sys::Proc::Concerns::System
   #
   # @return [Module]
   def system_concern
-    r = "sys/proc/concerns/system/#{host_os}"
+    r = "sys/proc/concerns/system/#{system}"
 
     return load_class(r)
   rescue LoadError => e
