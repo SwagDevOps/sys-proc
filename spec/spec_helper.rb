@@ -3,6 +3,19 @@
 require 'pp'
 require 'rspec/sleeping_king_studios/matchers/core/all'
 
+# DSL is a module that provides #host_os, etc.
+#
+# Use:
+#
+# ```
+# self.extend RSpec::DSL
+# ```
+module RSpec::DSL
+  def host_os
+    RbConfig::CONFIG['host_os']
+  end
+end
+
 # Sample of use:
 #
 # ~~~~

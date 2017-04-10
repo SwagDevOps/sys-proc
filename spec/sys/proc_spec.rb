@@ -20,8 +20,10 @@ end
 
 # operating system contexts
 describe Sys::Proc do
-  if :linux_gnu == described_class.host_os
-    context 'when %s' % described_class.host_os do
+  self.extend RSpec::DSL
+
+  if ['linux-gnu'].include?(host_os)
+    context "when #{host_os}" do
       # @todo
     end
   end
