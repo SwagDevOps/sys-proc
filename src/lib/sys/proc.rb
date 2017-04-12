@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pp'
+require 'English'
 
 # The Sys module is only used as a namespace
 module Sys
@@ -16,9 +17,8 @@ class Sys::Proc
     require "sys/proc/concerns/#{req}"
   end
 
-  VERSION_PATH_LEVELS = 3
-
   include ::Singleton
+  VERSION_PATH_LEVELS = 3
   include Concerns::Versionable
   include Concerns::StaticInstance
   include Concerns::System
@@ -42,16 +42,4 @@ class Sys::Proc
   def pid
     $PROCESS_ID
   end
-
-  # Sets process title
-  #
-  def title=(title)
-    title = title.to_s.freeze
-
-    $PROGRAM_NAME = title
-  end unless methods.include?('title='.to_sym)
-
-  def title
-    $PROGRAM_NAME
-  end unless methods.include?(:title)
 end
