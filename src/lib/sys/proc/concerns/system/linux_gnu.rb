@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
+require 'sys/proc/concerns/helpers'
 require 'sys/proc/concerns/system'
+require 'sys/proc/concerns/system/generic'
 
 # Provides specific Linux-GNU methods
 module Sys::Proc::Concerns::System::LinuxGnu
   extend ActiveSupport::Concern
+  include Sys::Proc::Concerns::Helpers
 
   # Set process title
   #
   # @param [String] title
   # @return [String]
   def title=(title)
-    title = title.to_s
-
+    helpers.get('system/generic').title = title
     prctl.set_name(title)
-    $PROGRAM_NAME = title
 
     title
   end
