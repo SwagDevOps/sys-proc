@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require 'sys/proc/concerns'
+require 'sys/proc/concerns/helpers'
 
 # Provides Operating System related methods
 #
 # This ``Concern`` loads system (OS) related sub-concern (specialisation)
 module Sys::Proc::Concerns::System
   extend ActiveSupport::Concern
+  include Sys::Proc::Concerns::Helpers
 
   # Related concern is included recursively
   included { include system_concern }
@@ -33,13 +35,13 @@ module Sys::Proc::Concerns::System
 
   protected
 
-  # @todo use an helper instead
+  # Load a class from a require path and return it
+  #
   # @return [Class]
   def load_class(r)
-    require 'active_support/inflector'
     require r
 
-    inflector = ActiveSupport::Inflector
+    inflector = helpers.get(:inflector)
     inflector.constantize(inflector.classify(r))
   end
 end
