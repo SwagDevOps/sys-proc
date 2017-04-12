@@ -15,10 +15,8 @@ module Sys::Proc::Concerns::System::Generic
   # @param [String] title
   # @return [String]
   def title=(title)
-    title = title.to_s
-
-    Process.setproctitle(title)
-    $PROGRAM_NAME = title
+    Process.setproctitle(title.to_s)
+    $PROGRAM_NAME = title.to_s
 
     title
   end
