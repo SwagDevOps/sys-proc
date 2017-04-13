@@ -2,7 +2,7 @@
 
 # class methods
 describe Sys::Proc do
-  [:version_info, :instance, 'VERSION'].each do |method|
+  [:version_info, :new, 'VERSION'].each do |method|
     it { expect(described_class).to respond_to(method) }
   end
 
@@ -10,7 +10,7 @@ describe Sys::Proc do
 end
 
 # instance methods are available as class methods
-[Sys::Proc.instance, Sys::Proc].each do |subject|
+[Sys::Proc.new, Sys::Proc].each do |subject|
   describe subject do
     [:pid, :title, 'title=', :system].each do |method|
       it { expect(subject).to respond_to(method) }

@@ -10,14 +10,14 @@ module Sys::Proc::Concerns::StaticInstance
     # Provides access to instance methods
     def method_missing(method, *args, &block)
       if respond_to_missing?(method)
-        instance.public_send(method, *args, &block)
+        new.public_send(method, *args, &block)
       else
         super
       end
     end
 
     def respond_to_missing?(method, include_private = false)
-      return true if instance.respond_to?(method, include_private)
+      return true if new.respond_to?(method, include_private)
 
       super(method, include_private)
     end

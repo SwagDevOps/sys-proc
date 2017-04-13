@@ -17,25 +17,29 @@ class Sys::Proc
     require "sys/proc/concerns/#{req}"
   end
 
-  include ::Singleton
   VERSION_PATH_LEVELS = 3
   include Concerns::Versionable
   include Concerns::StaticInstance
   include Concerns::System
+
+  # @param [String|Symbol] system
+  def initialize(system = nil)
+    @system = system
+  end
 
   class << self
     # Get available methods
     #
     # @return [Array<Symbol>]
     def methods
-      super() + instance.methods
+      super() + new.methods
     end
 
     # Get available public methods
     #
     # @return [Array<Symbol>]
     def public_methods
-      super() + instance.public_methods
+      super() + new.public_methods
     end
   end
 
