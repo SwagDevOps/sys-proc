@@ -17,7 +17,7 @@ module Sys::Proc::Concerns::System
   #
   # @return [Symbol]
   def system
-    (RbConfig::CONFIG['host_os'] || 'generic').tr('-', '_').to_sym
+    (@system || (RbConfig::CONFIG['host_os'] || 'generic').tr('-', '_')).to_sym
   end
 
   # Get operating system related concern
