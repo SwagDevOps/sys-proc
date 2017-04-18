@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pp'
 require 'English'
 
 # The Sys module is only used as a namespace
