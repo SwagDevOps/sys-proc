@@ -3,6 +3,7 @@
 *~
 /*.gemspec
 /.bundle/
+/.envrc
 /.yardoc
 /_yardoc/
 /coverage/
