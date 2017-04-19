@@ -22,7 +22,7 @@ end
   end
 end
 
-# operating system contexts
+# examples based on system contexts
 describe Sys::Proc do
   self.extend RSpec::DSL
 
@@ -33,7 +33,7 @@ describe Sys::Proc do
       describe Sys::Proc do
         16.times do |i|
           context "in iteration #{(i+1)}" do
-            context '#title' do
+            context '.title' do
               let!(:title) \
               { subject.title = "proc_#{SecureRandom.hex}"[0..14] }
 
@@ -41,6 +41,17 @@ describe Sys::Proc do
 
               it { expect(subject.title).to eq($PROGRAM_NAME) }
             end
+          end
+        end
+
+        context '.system' do
+          it { expect(subject.system).to equal(:linux_gnu) }
+        end
+
+        context '.system_concern' do
+          it do
+            expect(subject.system_concern)
+              .to equal(Sys::Proc::Concerns::System::LinuxGnu)
           end
         end
       end
