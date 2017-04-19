@@ -11,6 +11,9 @@ require 'rspec/sleeping_king_studios/matchers/core/all'
 # self.extend RSpec::DSL
 # ```
 module RSpec::DSL
+  # Get current platform (os) identifier
+  #
+  # @return [String]
   def host_os
     RbConfig::CONFIG['host_os']
   end
