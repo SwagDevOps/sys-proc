@@ -38,6 +38,8 @@ describe Sys::Proc do
               { subject.title = "proc_#{SecureRandom.hex}"[0..14] }
 
               it { expect(subject.title).to eq(title) }
+
+              it { expect(subject.title).to eq($PROGRAM_NAME) }
             end
           end
         end
