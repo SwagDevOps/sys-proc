@@ -51,7 +51,7 @@ describe Sys::Proc do
         context '.system_concern' do
           it do
             expect(subject.system_concern)
-              .to equal(Sys::Proc::Concerns::System::LinuxGnu)
+              .to equal(Sys::Proc::Concern::System::LinuxGnu)
           end
         end
       end

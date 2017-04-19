@@ -23,8 +23,8 @@ class Sys::Proc::Helpers::System::Generic
   protected
 
   def system
-    require 'sys/proc/concerns/system/generic'
+    require 'sys/proc/concern/system/generic'
 
-    (Class.new { include Sys::Proc::Concerns::System::Generic }).new
+    (Class.new { include Sys::Proc::Concern::System::Generic }).new
   end
 end

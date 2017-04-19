@@ -13,13 +13,13 @@ end
 class Sys::Proc
   require 'singleton'
   %i{versionable system static_instance}.each do |req|
-    require "sys/proc/concerns/#{req}"
+    require "sys/proc/concern/#{req}"
   end
 
   VERSION_PATH_LEVELS = 3
-  include Concerns::Versionable
-  include Concerns::StaticInstance
-  include Concerns::System
+  include Concern::Versionable
+  include Concern::StaticInstance
+  include Concern::System
 
   # @param [String|Symbol] system
   def initialize(system = nil)

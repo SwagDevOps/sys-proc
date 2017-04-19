@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sys/proc/concerns'
+require 'sys/proc/concern'
 require 'sys/proc/helpers'
 
 # Provides access to helpers
-module Sys::Proc::Concerns::Helpers
+module Sys::Proc::Concern::Helpers
   extend ActiveSupport::Concern
 
   protected

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sys/proc/concerns'
+require 'sys/proc/concern'
 
 # Provides static accesses
-module Sys::Proc::Concerns::StaticInstance
+module Sys::Proc::Concern::StaticInstance
   extend ActiveSupport::Concern
 
   module ClassMethods

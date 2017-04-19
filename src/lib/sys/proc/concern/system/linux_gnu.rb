@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'sys/proc/concerns/helpers'
-require 'sys/proc/concerns/system'
-require 'sys/proc/concerns/system/generic'
+require 'sys/proc/concern/helpers'
+require 'sys/proc/concern/system'
+require 'sys/proc/concern/system/generic'
 
 # Provides specific Linux-GNU methods
-module Sys::Proc::Concerns::System::LinuxGnu
+module Sys::Proc::Concern::System::LinuxGnu
   extend ActiveSupport::Concern
-  include Sys::Proc::Concerns::Helpers
+  include Sys::Proc::Concern::Helpers
 
   # Set process title
   #
