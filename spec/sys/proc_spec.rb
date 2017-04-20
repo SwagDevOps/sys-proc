@@ -23,38 +23,46 @@ end
 end
 
 # examples based on system contexts
-describe Sys::Proc do
-  self.extend RSpec::DSL
+self.extend RSpec::DSL
 
-  if ['linux-gnu'].include?(host_os)
-    require 'securerandom'
+if ['linux-gnu'].include?(host_os)
+  require 'securerandom'
 
-    context "when #{host_os}" do
-      describe Sys::Proc do
-        16.times do |i|
-          context "in iteration #{(i+1)}" do
-            context '.title' do
-              let!(:title) \
-              { subject.title = "proc_#{SecureRandom.hex}"[0..14] }
-
-              it { expect(subject.title).to eq(title) }
-
-              it { expect(subject.title).to eq($PROGRAM_NAME) }
-            end
+  context "when #{host_os}," do
+    describe Sys::Proc do
+      16.times do |i|
+        context '.title' do
+          let!(:title) do
+            subject.title = "proc_#{SecureRandom.hex}"
+            subject.title
           end
-        end
 
-        context '.system' do
-          it { expect(subject.system).to equal(:linux_gnu) }
-        end
+          it { expect(subject.title).to eq(title) }
 
-        context '.system_concern' do
-          it do
-            expect(subject.system_concern)
-              .to equal(Sys::Proc::Concern::System::LinuxGnu)
-          end
+          it { expect(subject.title).to eq($PROGRAM_NAME) }
         end
       end
+
+      context '.system' do
+        it { expect(subject.system).to equal(:linux_gnu) }
+      end
+
+      context '.system_concern' do
+        it do
+          expect(subject.system_concern)
+            .to equal(Sys::Proc::Concern::System::LinuxGnu)
+        end
+      end
+    end
+
+    describe '$PROGRAM_NAME' do
+      let!(:title) do
+        Sys::Proc.title = "proc_#{SecureRandom.hex}"
+        Sys::Proc.title
+      end
+      let!(:subject) { $PROGRAM_NAME }
+
+      it { expect(subject).to eq(title) }
     end
   end
 end
