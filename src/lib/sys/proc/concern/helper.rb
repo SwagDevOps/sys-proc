@@ -11,6 +11,6 @@ module Sys::Proc::Concern::Helper
 
   # @return [Sys::Proc::Helper]
   def helper
-    Sys::Proc::Helper
+    Sys::Proc::Helper.new
   end
 end
