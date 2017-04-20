@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-# (Class.new { include Sys::Proc::Concerns::System::Generic }.title = title)
-
 require 'sys/proc'
 
-# Provides access to helpers
+# Provides access to helper classes
 class Sys::Proc::Helper
   def initialize
-    @inflector = proc do
-      require 'active_support/inflector'
-      ActiveSupport::Inflector
-    end.call
+    @items = {
+      inflector: proc do
+        require 'sys/proc/helper/inflector'
 
-    @items = { inflector: inflector }
+        Inflector.new
+      end.call
+    }
   end
 
   # @param [String|Symbol] name
@@ -22,16 +21,17 @@ class Sys::Proc::Helper
 
     return items[name] if items[name]
 
-    r = "sys/proc/helper/#{name}"
-    require r
-    @items[name] = inflector.constantize(inflector.classify(r)).new
+    @items[name] = inflector.load("sys/proc/helper/#{name}").new
   end
 
   protected
 
   attr_reader :items
 
-  attr_reader :inflector
+  # @return [Sys::Proc::Helper::Inflector]
+  def inflector
+    items.fetch(:inflector)
+  end
 
   class << self
     # Provides access to instance methods
