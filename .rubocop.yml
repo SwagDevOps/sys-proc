@@ -9,7 +9,7 @@ AllCops: { DisplayCopNames: true }
 
 AllCops:
   DisplayCopNames: true,
-TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.3
 
 Lint/UnusedBlockArgument: { Enabled: false }
 
