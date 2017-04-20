@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # Namespace
-module Sys::Proc::Helpers::System
+module Sys::Proc::Helper::System
 end
 
 # Provides access to ``Sys::Proc::Concerns::System::Generic`` methods
-class Sys::Proc::Helpers::System::Generic
+class Sys::Proc::Helper::System::Generic
   def method_missing(method, *args, &block)
     if respond_to_missing?(method)
       system.public_send(method, *args, &block)

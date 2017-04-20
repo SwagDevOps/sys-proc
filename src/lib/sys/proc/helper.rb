@@ -5,7 +5,7 @@
 require 'sys/proc'
 
 # Provides access to helpers
-class Sys::Proc::Helpers
+class Sys::Proc::Helper
   def initialize
     @inflector = proc do
       require 'active_support/inflector'
@@ -22,7 +22,7 @@ class Sys::Proc::Helpers
 
     return items[name] if items[name]
 
-    r = "sys/proc/helpers/#{name}"
+    r = "sys/proc/helper/#{name}"
     require r
     @items[name] = inflector.constantize(inflector.classify(r)).new
   end

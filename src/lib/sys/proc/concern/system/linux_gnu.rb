@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'sys/proc/concern/helpers'
+require 'sys/proc/concern/helper'
 require 'sys/proc/concern/system'
 require 'sys/proc/concern/system/generic'
 
 # Provides specific Linux-GNU methods
 module Sys::Proc::Concern::System::LinuxGnu
   extend ActiveSupport::Concern
-  include Sys::Proc::Concern::Helpers
+  include Sys::Proc::Concern::Helper
 
   # Set process title
   #
@@ -16,7 +16,7 @@ module Sys::Proc::Concern::System::LinuxGnu
   def title=(title)
     prctl.set_name(title)
 
-    helpers.get('system/generic').title = self.title
+    helper.get('system/generic').title = self.title
   end
 
   # Get process title
