@@ -36,25 +36,31 @@ class Sys::Proc::System::LinuxGnu::Prctl
   #
   # @param [String] name
   # @return [Boolean]
+  # rubocop:disable Style/AccessorMethodName
   def set_name(name = nil)
     name ||= Pathname.new($PROGRAM_NAME).basename('.rb').to_s
     name = name.to_s
 
-    return false unless call(PR_SET_NAME, name).zero?
-
-    $PROGRAM_NAME = name
-    true
+    if call(PR_SET_NAME, name).zero?
+      $PROGRAM_NAME = name
+      true
+    else
+      false
+    end
   end
+  # rubocop:enable Style/AccessorMethodName
 
   # Return the name of the calling thread
   #
   # @return [String]
+  # rubocop:disable Style/AccessorMethodName
   def get_name
     ptr = Fiddle::Pointer.malloc(32, Fiddle::RUBY_FREE.to_i)
 
     call(PR_GET_NAME, ptr.to_i)
     ptr.to_s
   end
+  # rubocop:enable Style/AccessorMethodName
 
   # prctl() is called with a first argument describing what to do (with
   # values defined in <linux/prctl.h>), and further arguments with a
@@ -62,7 +68,7 @@ class Sys::Proc::System::LinuxGnu::Prctl
   #
   # @return [Fixnum]
   def call(*args)
-    args = args + ([0]*5).slice(args.size..-1)
+    args += ([0] * 5).slice(args.size..-1)
 
     function.call(*args)
   end
