@@ -24,24 +24,14 @@ module Sys::Proc::Concern::System
   #
   # @return [Module]
   def system_concern
-    r = "sys/proc/concern/system/#{system}"
-
-    return load_class(r)
-  rescue LoadError => e
-    raise unless /^cannot load such file -- #{Regexp.quote(r)}/ =~ e.to_s
-
-    return load_class('sys/proc/concern/system/generic')
-  end
-
-  protected
-
-  # Load a class from a require path and return it
-  #
-  # @return [Class]
-  def load_class(r)
-    require r
-
     inflector = helper.get(:inflector)
-    inflector.constantize(inflector.classify(r))
+
+    begin
+      inflector.load("sys/proc/concern/system/#{system}")
+    rescue LoadError => e
+      raise unless /^cannot load such file -- #{Regexp.quote(r)}/ =~ e.to_s
+
+      inflector.load('sys/proc/concern/system/generic')
+    end
   end
 end
