@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'pathname'
-require 'active_support/inflector'
 require 'version_info'
 
 require 'sys/proc/concern'
@@ -36,6 +35,8 @@ module Sys::Proc::Concern::Versionable
     #
     # @return [Pathname]
     def version_filepath
+      require 'active_support/inflector'
+
       name = ActiveSupport::Inflector.underscore(self.name)
       dirs = ['..'] * self::VERSION_PATH_LEVELS
 
