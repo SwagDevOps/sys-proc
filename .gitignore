@@ -1,7 +1,6 @@
 *.gem
 *.swp
 *~
-/*.gemspec
 /.bundle/
 /.envrc
 /.yardoc
