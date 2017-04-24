@@ -1,28 +1,24 @@
 # frozen_string_literal: true
 
 require 'pathname'
-require 'version_info'
 
 require 'sys/proc/concern'
 
 # Provides a standardized way to use ``VersionInfo``
-#
-# Define ``VERSION_PATH_LEVELS`` in order to suit your needs
 module Sys::Proc::Concern::Versionable
   extend ActiveSupport::Concern
 
-  included do
-    VERSION_PATH_LEVELS = 2 unless const_defined?(:VERSION_PATH_LEVELS)
-    version_info
-  end
+  included { version_info }
 
   module ClassMethods
     def version_info
       unless const_defined?(:VERSION)
+        require 'version_info'
         include VersionInfo
-
+        # @todo deternmine format from extension?
         VersionInfo.file_format = :yaml
-        self.VERSION.file_name = version_filepath
+
+        self.VERSION.file_name = version_basedir.join('version_info.yml')
         self.VERSION.load
       end
 
@@ -31,16 +27,16 @@ module Sys::Proc::Concern::Versionable
 
     protected
 
-    # Get path to the ``version`` file
+    # Extract basedir from ``caller``
     #
+    # @raise [Errno::ENOENT]
     # @return [Pathname]
-    def version_filepath
-      require 'active_support/inflector'
+    def version_basedir
+      basedir = caller.grep(/in `include'/)
+                      .fetch(0)
+                      .split(/\.rb:[0-9]+:in\s+/).fetch(0)
 
-      name = ActiveSupport::Inflector.underscore(self.name)
-      dirs = ['..'] * self::VERSION_PATH_LEVELS
-
-      Pathname.new(__dir__).join(*(dirs + [name, 'version_info.yml'])).realpath
+      Pathname.new(basedir).realpath
     end
   end
 end

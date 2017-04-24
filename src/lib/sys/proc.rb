@@ -16,7 +16,6 @@ class Sys::Proc
     require "sys/proc/concern/#{req}"
   end
 
-  VERSION_PATH_LEVELS = 3
   include Concern::Versionable
   include Concern::StaticInstance
   include Concern::System
