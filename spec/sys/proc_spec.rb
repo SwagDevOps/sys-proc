@@ -33,8 +33,10 @@ if ['linux-gnu'].include?(host_os)
       16.times do |i|
         context '.title' do
           let!(:title) do
-            subject.title = "proc_#{SecureRandom.hex}"
-            subject.title
+            title = "proc_#{SecureRandom.hex}"[0..14]
+            subject.title = title
+
+            title
           end
 
           it { expect(subject.title).to eq(title) }
