@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "gemspec_deps_gen", ["= 1.1.2"]
   s.add_development_dependency "tenjin", ["~> 0.7"]
   s.add_development_dependency "rainbow", ["~> 2.2"]
+  s.add_development_dependency "tty-editor", ["~> 0.2"]
   s.add_development_dependency "yard", ["~> 0.9"]
   s.add_development_dependency "redcarpet", ["~> 3.4"]
   s.add_development_dependency "github-markup", ["~> 1.4"]

@@ -15,6 +15,7 @@ group :development do
   gem 'gemspec_deps_gen', '= 1.1.2'
   gem 'tenjin', '~> 0.7'
   gem 'rainbow', '~> 2.2'
+  gem 'tty-editor', '~> 0.2'
 end
 
 group :doc, :development do
