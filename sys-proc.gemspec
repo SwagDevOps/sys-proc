@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.licenses    = ["GPL-3.0"]
   s.authors     = ["Dimitri Arrigoni"]
   s.email       = 'dimitri@arrigoni.me'
-  s.homepage    = 'https://github.com/SwagDevOps/ruby-sys-proc'
+  s.homepage    = 'https://github.com/SwagDevOps/sys-proc'
 
   s.required_ruby_version = '>= 2.2.2'
   s.require_paths = ['src/lib']
