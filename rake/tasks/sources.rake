@@ -6,6 +6,7 @@ namespace :sources do
     require 'project/licenser'
 
     Project::Licenser.process do |process|
+      # @todo use ``Gem::Specification``
       process.patterns += ['src/bin/*']
     end
   end

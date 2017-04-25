@@ -30,7 +30,7 @@ class Project::Licenser
   def initialize
     @patterns = []
     @files = Project.spec.files.reject { |f| !f.scan(/\.rb$/)[0] }
-    @license ||= Project.version_info[:license]
+    @license ||= Project.version_info[:license_header]
 
     yield self if block_given?
   end
