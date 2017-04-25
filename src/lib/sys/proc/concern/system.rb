@@ -27,7 +27,7 @@ module Sys::Proc::Concern::System
     inflector = helper.get(:inflector)
 
     begin
-      inflector.load("sys/proc/concern/system/#{system}")
+      inflector.resolve("sys/proc/concern/system/#{system}")
     rescue LoadError => e
       raise unless /^cannot load such file -- #{Regexp.quote(r)}/ =~ e.to_s
 

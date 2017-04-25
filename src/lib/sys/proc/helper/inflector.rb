@@ -13,7 +13,7 @@ class Sys::Proc::Helper::Inflector
   #
   # @param [String] loadable
   # @return [Object]
-  def load(loadable)
+  def resolve(loadable)
     require loadable
 
     @inflector.constantize(@inflector.classify(loadable))

@@ -28,7 +28,7 @@ class Sys::Proc::Helper
     return items[name] if items[name]
 
     begin
-      @items[name] = inflector.load("sys/proc/helper/#{name}").new
+      @items[name] = inflector.resolve("sys/proc/helper/#{name}").new
     rescue LoadError
       raise NotImplementedError, "helper not loadable: #{name}"
     end
