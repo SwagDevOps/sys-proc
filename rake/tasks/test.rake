@@ -22,3 +22,5 @@ task :test, [:tag] do |task, args|
     exit(status) unless status.zero?
   end.call
 end
+
+task :spec => [:test]
