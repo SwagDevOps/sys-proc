@@ -20,6 +20,13 @@ class Sys::Proc::Helper::System::Generic
     super(method, include_private)
   end
 
+  # @return [String]
+  def setproctitle(title = nil, &block)
+    system.title = title || system.default_title
+
+    system.title = yield(system) if block
+  end
+
   protected
 
   def system
