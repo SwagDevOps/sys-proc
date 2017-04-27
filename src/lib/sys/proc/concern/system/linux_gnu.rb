@@ -14,9 +14,11 @@ module Sys::Proc::Concern::System::LinuxGnu
   # @param [String] title
   # @return [String]
   def title=(title)
-    prctl.set_name(title)
+    self.helper.get('system/generic').setproctitle(title) do |s|
+      prctl.set_name(s.title)
 
-    helper.get('system/generic').title = self.title
+      self.title
+    end
   end
 
   # Get process title
