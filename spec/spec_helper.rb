@@ -2,6 +2,7 @@
 
 require 'pp'
 require 'rspec/sleeping_king_studios/matchers/core/all'
+require '%s/../src/lib/%s' % [__dir__, ENV.fetch('PROJECT_NAME')]
 
 # DSL is a module that provides #host_os, etc.
 #
