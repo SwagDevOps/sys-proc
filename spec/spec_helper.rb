@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pp'
 require 'rspec/sleeping_king_studios/matchers/core/all'
 require '%s/../src/lib/%s' % [__dir__, ENV.fetch('PROJECT_NAME')]
 
