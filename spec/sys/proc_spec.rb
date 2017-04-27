@@ -60,7 +60,7 @@ if ['linux-gnu'].include?(host_os)
         it do
           subject.title = nil
 
-          expect(subject.title).to match(/(rake|rspec)/)
+          expect(subject.title).to match(/^(rake|rspec)$/)
         end
       end
     end
