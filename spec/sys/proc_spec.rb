@@ -55,6 +55,14 @@ if ['linux-gnu'].include?(host_os)
             .to equal(Sys::Proc::Concern::System::LinuxGnu)
         end
       end
+
+      context '.title = nil' do
+        it do
+          subject.title = nil
+
+          expect(subject.title).to match(/(rake|rspec)/)
+        end
+      end
     end
 
     describe '$PROGRAM_NAME' do
