@@ -29,9 +29,9 @@ module Sys::Proc::Concern::System
     begin
       inflector.resolve("sys/proc/concern/system/#{system}")
     rescue LoadError => e
-      raise unless /^cannot load such file -- #{Regexp.quote(r)}/ =~ e.to_s
+      # m = /^cannot load such file -- #{Regexp.quote(system)}/ =~ e.to_s
 
-      inflector.load('sys/proc/concern/system/generic')
+      inflector.resolve('sys/proc/concern/system/generic')
     end
   end
 end
