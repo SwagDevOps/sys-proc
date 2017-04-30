@@ -3,6 +3,7 @@
 *~
 /.bundle/
 /.envrc
+/.vagrant/
 /.yardoc
 /_yardoc/
 /coverage/
@@ -11,4 +12,5 @@
 /pkg/
 /spec/reports/
 /tmp/
+/Vagrantfile
 /vendor/
