@@ -1,6 +1,7 @@
 *.gem
 *.swp
 *~
+/*.gemspec
 /.bundle/
 /.envrc
 /.vagrant/
