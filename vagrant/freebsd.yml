@@ -14,14 +14,19 @@ synced_folder:
        '**/.#*',
        '.git/',
        'Vagrantfile',
-       'vagrant',
+       'vagrant/',
        '**/*_flymake.*',
+       'doc/', 'pkg/',
        'vendor/bundle/ruby/*/extensions/*'
     ]}
 provisions:
   - [['file'], {
       !ruby/symbol source: 'vagrant/freebsd/bashrc.sh',
       !ruby/symbol destination: '/home/vagrant/.bashrc',
+    }]
+  - [['file'], {
+      !ruby/symbol source: 'vagrant/freebsd/vimrc',
+      !ruby/symbol destination: '/home/vagrant/.vim/vimrc',
     }]
   - [['shell'], {!ruby/symbol path: 'vagrant/freebsd/provision.sh'}]
 providers:
@@ -38,8 +43,9 @@ providers:
       - ['modifyvm', !ruby/symbol id, '--hwvirtex', 'on']
       - ['modifyvm', !ruby/symbol id, '--audio', 'none']
       - ['modifyvm', !ruby/symbol id, '--vram', 1]
+      - ['modifyvm', !ruby/symbol id, '--vrde', 'off']
       - ['modifyvm', !ruby/symbol id, '--nictype1', 'virtio']
       - ['modifyvm', !ruby/symbol id, '--nictype2', 'virtio']
       - ['modifyvm', !ruby/symbol id, '--cableconnected1', 'on']
 ssh_commands:
-  test: '$SHELL -cl ". .env && bundle exec rspec"'
+  rspec: '$SHELL -cl ". .env && bundle exec rspec"'
