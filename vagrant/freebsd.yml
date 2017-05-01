@@ -1,0 +1,45 @@
+# @see https://atlas.hashicorp.com/bento/boxes/freebsd-11.0
+# @see https://groups.google.com/forum/#!topic/vagrant-up/dNnloUOVCI4
+---
+image: 'bento/freebsd-11.0'
+guest: !ruby/symbol freebsd
+synced_folder:
+  - ['.', '/vagrant']
+  - {!ruby/symbol id: 'vagrant-root',
+     !ruby/symbol type: 'rsync',
+     !ruby/symbol rsync__args: ['-vaz', '--del', '--copy-links'],
+     !ruby/symbol rsync__verbose: true,
+     !ruby/symbol rsync__auto: true,
+     !ruby/symbol rsync__exclude: [
+       '**/.#*',
+       '.git/',
+       'Vagrantfile',
+       'vagrant',
+       '**/*_flymake.*',
+       'vendor/bundle/ruby/*/extensions/*'
+    ]}
+provisions:
+  - [['file'], {
+      !ruby/symbol source: 'vagrant/freebsd/bashrc.sh',
+      !ruby/symbol destination: '/home/vagrant/.bashrc',
+    }]
+  - [['shell'], {!ruby/symbol path: 'vagrant/freebsd/provision.sh'}]
+providers:
+  virtualbox:
+    vm:
+      - ['network', ['private_network'], {
+          !ruby/symbol type: 'dhcp',
+          !ruby/symbol adapter: 2,
+        }]
+    customize:
+      - ['modifyvm', !ruby/symbol id, '--memory', 128]
+      - ['modifyvm', !ruby/symbol id, '--cpus', 1]
+      - ['modifyvm', !ruby/symbol id, '--cpuexecutioncap', 80]
+      - ['modifyvm', !ruby/symbol id, '--hwvirtex', 'on']
+      - ['modifyvm', !ruby/symbol id, '--audio', 'none']
+      - ['modifyvm', !ruby/symbol id, '--vram', 1]
+      - ['modifyvm', !ruby/symbol id, '--nictype1', 'virtio']
+      - ['modifyvm', !ruby/symbol id, '--nictype2', 'virtio']
+      - ['modifyvm', !ruby/symbol id, '--cableconnected1', 'on']
+ssh_commands:
+  test: '$SHELL -cl ". .env && bundle exec rspec"'
