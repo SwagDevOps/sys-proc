@@ -6,13 +6,17 @@ $LOAD_PATH.unshift __dir__
 
 if 'development' == ENV['PROJECT_MODE']
   require 'pp'
-  require 'coderay'
-  require 'pry/color_printer'
+  begin
+    require 'coderay'
+    require 'pry/color_printer'
+  rescue LoadError
+  end
 
   def pp(obj, out=STDOUT, width=nil)
     args = [obj, out, width].compact
+    colorable = (out.isatty and Kernel.const_defined?('Pry::ColorPrinter'))
 
-    (out.isatty ? Pry::ColorPrinter : PP).pp(*args)
+    (colorable ? Pry::ColorPrinter : PP).pp(*args)
   end
 end
 
