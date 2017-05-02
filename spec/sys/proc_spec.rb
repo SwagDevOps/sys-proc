@@ -25,7 +25,7 @@ end
 # examples based on system contexts
 self.extend RSpec::DSL
 
-if ['linux-gnu'].include?(host_os)
+if host_os == 'linux-gnu'
   require 'securerandom'
 
   context "when #{host_os}," do
@@ -73,6 +73,14 @@ if ['linux-gnu'].include?(host_os)
       let!(:subject) { $PROGRAM_NAME }
 
       it { expect(subject).to eq(title) }
+    end
+  end
+end
+
+if host_os =~ /^freebsd/
+  describe Sys::Proc do
+    describe '.system' do
+      it { expect(subject.system).to eq(:freebsd) }
     end
   end
 end
