@@ -48,4 +48,4 @@ providers:
       - ['modifyvm', !ruby/symbol id, '--nictype2', 'virtio']
       - ['modifyvm', !ruby/symbol id, '--cableconnected1', 'on']
 ssh_commands:
-  rspec: '$SHELL -cl ". .env && bundle exec rspec"'
+  rspec: 'bash -cl ". .env && bundle exec rspec"'

@@ -14,6 +14,7 @@ done
 
 chown -Rf 'vagrant:vagrant' '/home/vagrant'
 rm -rf '/home/vagrant/VBoxGuestAdditions.iso'
+head -1 /etc/motd | tee /etc/motd
 # RVM installation
 export RUBY_VERSION=2.3.3
 test -f '/usr/local/rvm/bin/rvm' || {
