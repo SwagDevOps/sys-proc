@@ -2,7 +2,7 @@
 
 # class methods
 describe Sys::Proc do
-  {version_info: 0, new: 0, VERSION: 0}.each do |method, n|
+  { version_info: 0, new: 0, VERSION: 0 }.each do |method, n|
     it { expect(described_class).to respond_to(method) }
 
     it { expect(described_class).to respond_to(method).with(n).arguments }
@@ -14,7 +14,7 @@ end
 # instance methods are available as class methods
 [Sys::Proc.new, Sys::Proc].each do |subject|
   describe subject do
-    {pid: 0, title: 0, 'title=' => 1, system: 0}.each do |method, n|
+    { pid: 0, title: 0, 'title=' => 1, system: 0 }.each do |method, n|
       it { expect(subject).to respond_to(method) }
 
       it { expect(subject).to respond_to(method).with(n).arguments }
@@ -25,7 +25,7 @@ end
 # examples based on system contexts
 self.extend RSpec::DSL
 
-if host_os == 'linux-gnu'
+if host_os =~ /linux(_|-)gnu/
   require 'securerandom'
 
   context "when #{host_os}," do
@@ -51,8 +51,9 @@ if host_os == 'linux-gnu'
 
       context '.system_concern' do
         it do
-          expect(subject.system_concern)
-            .to equal(Sys::Proc::Concern::System::LinuxGnu)
+          concern = Sys::Proc::Concern::System::LinuxGnu
+
+          expect(subject.system_concern).to equal(concern)
         end
       end
 
