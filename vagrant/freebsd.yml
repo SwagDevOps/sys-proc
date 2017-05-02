@@ -7,7 +7,7 @@ synced_folder:
   - ['.', '/vagrant']
   - {!ruby/symbol id: 'vagrant-root',
      !ruby/symbol type: 'rsync',
-     !ruby/symbol rsync__args: ['-vaz', '--del', '--copy-links'],
+     !ruby/symbol rsync__args: ['-vaz', '--copy-links'],
      !ruby/symbol rsync__verbose: true,
      !ruby/symbol rsync__auto: true,
      !ruby/symbol rsync__exclude: [
@@ -16,8 +16,7 @@ synced_folder:
        'Vagrantfile',
        'vagrant/',
        '**/*_flymake.*',
-       'doc/', 'pkg/',
-       'vendor/bundle/ruby/*/extensions/*'
+       'doc/', 'pkg/', 'vendor/'
     ]}
 provisions:
   - [['file'], {
