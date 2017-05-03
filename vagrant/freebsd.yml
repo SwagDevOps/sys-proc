@@ -11,12 +11,9 @@ synced_folder:
      !ruby/symbol rsync__verbose: true,
      !ruby/symbol rsync__auto: true,
      !ruby/symbol rsync__exclude: [
-       '**/.#*',
-       '.git/',
-       'Vagrantfile',
-       'vagrant/',
-       '**/*_flymake.*',
-       'doc/', 'pkg/', 'vendor/'
+       '**/.#*', '**/*_flymake.*', '**/.git*',
+       'Vagrantfile', 'vagrant/',
+       'doc/', 'pkg/', 'vendor/', '*.gemspec', '.yardoc/',
     ]}
 provisions:
   - [['file'], {
