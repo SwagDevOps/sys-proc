@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# Namespace
-module Sys::Proc::Helper::System
-end
+require 'sys/proc/helper/system'
 
 # Provides access to ``Sys::Proc::Concerns::System::Generic`` methods
 class Sys::Proc::Helper::System::Generic
