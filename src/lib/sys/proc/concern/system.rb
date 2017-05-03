@@ -17,13 +17,7 @@ module Sys::Proc::Concern::System
   #
   # @return [Symbol]
   def system
-    host_os = (@system || RbConfig::CONFIG['host_os'] || 'generic')
-
-    host_os.tr!('-', '_')
-    # freebsd11.0 -> freebsd
-    host_os.gsub!(/[0-9]+(\.[0-9]+)*$/, '')
-
-    host_os.to_sym
+    (@system || helper.get(:system).identify).to_sym
   end
 
   # Get operating system related concern
