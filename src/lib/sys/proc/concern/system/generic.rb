@@ -4,9 +4,9 @@ require 'sys/proc/concern/system'
 
 # Provides generic methods
 #
-# This generic module should be used
-# as a template to derivate system(s) specific modules.
-# This is the default included module when specific module is missing.
+# This generic module can be used through the ``system/generic`` helper
+# in other system(s) specific modules.
+# This is the default (included) module when specific module is missing.
 module Sys::Proc::Concern::System::Generic
   extend ActiveSupport::Concern
 
@@ -18,8 +18,6 @@ module Sys::Proc::Concern::System::Generic
   # @return [String]
   def title=(title)
     title ||= default_title
-
-    Process.setproctitle(title.to_s)
     $PROGRAM_NAME = title.to_s
 
     title
