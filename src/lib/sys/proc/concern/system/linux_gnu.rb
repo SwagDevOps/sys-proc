@@ -9,31 +9,31 @@ module Sys::Proc::Concern::System::LinuxGnu
   extend ActiveSupport::Concern
   include Sys::Proc::Concern::Helper
 
-  # Set process title
+  # Set program name
   #
-  # @param [String] title
+  # @param [String] progname
   # @return [String]
-  def title=(title)
-    self.helper.get('system/generic').setproctitle(title) do |s|
-      prctl.set_name(s.title)
+  def progname=(progname)
+    self.helper.get('system/generic').setprogname(progname) do |s|
+      prctl.set_name(s.progname)
 
-      self.title
+      self.progname
     end
   end
 
-  # Get process title
+  # Get program name
   #
   # @return [String]
-  def title
+  def progname
     prctl.get_name
   end
 
   protected
 
-  # @return [Sys::Proc::Os::LinuxGnu::Prctl]
+  # @return [Sys::Proc::System::LinuxGnu::Prctl]
   def prctl
     require 'sys/proc/system/linux_gnu/prctl'
 
-    Sys::Proc::System::LinuxGnu::Prctl.new
+    return Sys::Proc::System::LinuxGnu::Prctl.new
   end
 end

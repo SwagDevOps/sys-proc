@@ -14,7 +14,7 @@ end
 # instance methods are available as class methods
 [Sys::Proc.new, Sys::Proc].each do |subject|
   describe subject do
-    { pid: 0, title: 0, 'title=' => 1, system: 0 }.each do |method, n|
+    { pid: 0, progname: 0, 'progname=' => 1, system: 0 }.each do |method, n|
       it { expect(subject).to respond_to(method) }
 
       it { expect(subject).to respond_to(method).with(n).arguments }
@@ -31,17 +31,17 @@ if host_os =~ /linux(_|-)gnu/
   context "when #{host_os}," do
     describe Sys::Proc do
       16.times do |i|
-        context '.title' do
-          let!(:title) do
-            title = "proc_#{SecureRandom.hex}"[0..14]
-            subject.title = title
+        context '.progname' do
+          let!(:progname) do
+            progname = "proc_#{SecureRandom.hex}"[0..14]
+            subject.progname = progname
 
-            title
+            progname
           end
 
-          it { expect(subject.title).to eq(title) }
+          it { expect(subject.progname).to eq(progname) }
 
-          it { expect(subject.title).to eq($PROGRAM_NAME) }
+          it { expect(subject.progname).to eq($PROGRAM_NAME) }
         end
       end
 
@@ -57,23 +57,23 @@ if host_os =~ /linux(_|-)gnu/
         end
       end
 
-      context '.title = nil' do
+      context '.progname = nil' do
         it do
-          subject.title = nil
+          subject.progname = nil
 
-          expect(subject.title).to match(/^(rake|rspec)$/)
+          expect(subject.progname).to match(/^(rake|rspec)$/)
         end
       end
     end
 
     describe '$PROGRAM_NAME' do
-      let!(:title) do
-        Sys::Proc.title = "proc_#{SecureRandom.hex}"
-        Sys::Proc.title
+      let!(:progname) do
+        Sys::Proc.progname = "proc_#{SecureRandom.hex}"
+        Sys::Proc.progname
       end
       let!(:subject) { $PROGRAM_NAME }
 
-      it { expect(subject).to eq(title) }
+      it { expect(subject).to eq(progname) }
     end
   end
 end

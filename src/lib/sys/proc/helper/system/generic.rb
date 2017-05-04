@@ -19,10 +19,10 @@ class Sys::Proc::Helper::System::Generic
   end
 
   # @return [String]
-  def setproctitle(title = nil, &block)
-    system.title = title || system.default_title
+  def setprogname(progname = nil, &block)
+    system.progname = progname || system.default_progname
 
-    system.title = yield(system) if block
+    system.progname = yield(system) if block
   end
 
   protected

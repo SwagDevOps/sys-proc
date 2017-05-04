@@ -10,30 +10,30 @@ require 'sys/proc/concern/system'
 module Sys::Proc::Concern::System::Generic
   extend ActiveSupport::Concern
 
-  # Set process title
+  # Set program name
   #
-  # When an ``title`` is ``nil`` will
+  # When ``progname`` is ``nil`` will use a default ``progname``
   #
   # @param [String] title
   # @return [String]
-  def title=(title)
-    title ||= default_title
-    $PROGRAM_NAME = title.to_s
+  def progname=(progname)
+    progname ||= default_progname
+    $PROGRAM_NAME = progname.to_s
 
-    title
+    progname
   end
 
-  # Get process title
+  # Get program name
   #
   # @return [String]
-  def title
+  def progname
     $PROGRAM_NAME
   end
 
-  # Get default title
+  # Get default program name
   #
   # @return [String]
-  def default_title
+  def default_progname
     file = caller[-1].split(/:[0-9]+:in\s/).fetch(0)
 
     File.basename(file, '.rb')
