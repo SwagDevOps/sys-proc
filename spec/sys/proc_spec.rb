@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 # class methods
 describe Sys::Proc do
   { version_info: 0, new: 0, VERSION: 0 }.each do |method, n|
@@ -26,8 +28,6 @@ end
 self.extend RSpec::DSL
 
 if host_os =~ /linux(_|-)gnu/
-  require 'securerandom'
-
   context "when #{host_os}," do
     describe Sys::Proc do
       16.times do |i|
@@ -82,6 +82,33 @@ if host_os =~ /^freebsd/
   describe Sys::Proc do
     describe '.system' do
       it { expect(subject.system).to eq(:freebsd) }
+    end
+  end
+
+  context "when #{host_os}," do
+    describe Sys::Proc do
+      context '.system_concern' do
+        it do
+          concern = Sys::Proc::Concern::System::Freebsd
+
+          expect(subject.system_concern).to equal(concern)
+        end
+      end
+
+      16.times do |i|
+        context '.progname' do
+          let!(:progname) do
+            progname = "proc_#{SecureRandom.hex}"[0..14]
+            subject.progname = progname
+
+            progname
+          end
+
+          it { expect(subject.progname).to eq(progname) }
+
+          it { expect(subject.progname).to eq($PROGRAM_NAME) }
+        end
+      end
     end
   end
 end
