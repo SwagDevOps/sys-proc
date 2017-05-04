@@ -9,7 +9,8 @@ if 'development' == ENV['PROJECT_MODE']
   begin
     require 'coderay'
     require 'pry/color_printer'
-  rescue LoadError
+  rescue LoadError => e
+    warn("%s: %s" % [caller[0], e.message])
   end
 
   def pp(obj, out=STDOUT, width=nil)
