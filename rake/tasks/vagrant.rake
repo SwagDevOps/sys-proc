@@ -28,22 +28,24 @@ if vagrant.has_boxes? and vagrant.has_executable?
     end
   end
 
-  vagrant.boxes.each do |box, box_config|
-    namespace box do
-      [:up, :halt, :reload, :ssh, :provision, :rsync].each do |command|
-        desc "%s #{box}" % command.to_s.gsub(/(\w+)/) {|s| s.capitalize}
-        task command => [vagrant.file.basename] do
-          vagrant.execute(command.to_s, box)
+  namespace :vm do
+    vagrant.boxes.each do |box, box_config|
+      namespace box do
+        [:up, :halt, :reload, :ssh, :provision, :rsync].each do |command|
+          desc "%s #{box}" % command.to_s.gsub(/(\w+)/) {|s| s.capitalize}
+          task command => [vagrant.file.basename] do
+            vagrant.execute(command.to_s, box)
+          end
         end
-      end
 
-      namespace :ssh do
-        (box_config['ssh_commands'] || {}).each do |name, command|
-          next if command.to_s.empty?
+        namespace :ssh do
+          (box_config['ssh_commands'] || {}).each do |name, command|
+            next if command.to_s.empty?
 
-          desc "Execute `%s` named command" % name
-          task name => [vagrant.file.basename] do
-            vagrant.execute('ssh', box, '-c', command)
+            desc 'Execute `%s` named command' % name
+            task name => [vagrant.file.basename] do
+              vagrant.execute('ssh', box, '-c', command)
+            end
           end
         end
       end
