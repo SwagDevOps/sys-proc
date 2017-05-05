@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'fiddle'
-require 'pathname'
-
 require 'sys/proc/system/linux_gnu'
 
 # Operations on a process
