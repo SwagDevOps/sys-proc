@@ -37,16 +37,10 @@ class Sys::Proc::System::LinuxGnu::Prctl
   # @param [String] name
   # @return [Boolean]
   # rubocop:disable Style/AccessorMethodName
-  def set_name(name = nil)
-    name ||= Pathname.new($PROGRAM_NAME).basename('.rb').to_s
+  def set_name(name)
     name = name.to_s
 
-    if call(PR_SET_NAME, name).zero?
-      $PROGRAM_NAME = name
-      true
-    else
-      false
-    end
+    call(PR_SET_NAME, name).zero?
   end
   # rubocop:enable Style/AccessorMethodName
 
