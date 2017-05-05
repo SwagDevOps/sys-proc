@@ -27,7 +27,7 @@ class Sys::Proc::System::LinuxGnu::Prctl
   PR_GET_NAME = 16 # (since Linux 2.6.11)
 
   def initialize
-    @function = make_function
+    @lib = dlopen
   end
 
   # Set the name of the calling thread
@@ -67,10 +67,17 @@ class Sys::Proc::System::LinuxGnu::Prctl
 
   protected
 
+  # Load the shared library
+  #
+  # @return [Fiddle::Handle]
+  def dlopen
+    Fiddle.dlopen('libc.so.6')
+  end
+
   # @return [Fiddle::Function]
-  def make_function
+  def function
     config = {
-      handle: Fiddle::Handle['prctl'],
+      handle: @lib['prctl'],
       args: [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP,
              Fiddle::TYPE_LONG, Fiddle::TYPE_LONG, Fiddle::TYPE_LONG],
       ret_type: Fiddle::TYPE_INT
