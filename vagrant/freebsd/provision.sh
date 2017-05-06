@@ -1,10 +1,17 @@
 #!/usr/bin/env sh
 # -*- coding: utf-8 -*-
 
-for i in bash bash bash-completion htop curl vim-lite direnv; do
-    pkg install -y "$i"
+export RUBY_VERSION=2.3.3
+export PACKAGES='bash bash-completion htop curl vim-lite direnv pidof'
+
+# packages installation ----------------------------------------------
+pkg update
+for i in $(echo $PACKAGES | perl -pe "s#\s+#\n#g" | sort -u); do
+    printf "Installing %s\n" "$i"
+    pkg install -Uy "$i"
 done
-# bash setup
+
+# bash setup ---------------------------------------------------------
 chsh -s '/usr/local/bin/bash' 'vagrant'
 echo '. /etc/profile 2>/dev/null' > /home/vagrant/.profile
 echo '. "${HOME}/.bashrc" 2>/dev/null' >> /home/vagrant/.profile
@@ -13,10 +20,10 @@ for i in /home/vagrant /root; do
 done
 
 chown -Rf 'vagrant:vagrant' '/home/vagrant'
-rm -rf '/home/vagrant/VBoxGuestAdditions.iso'
+rm -rf /home/*/*.iso
 head -1 /etc/motd | tee /etc/motd
-# RVM installation
-export RUBY_VERSION=2.3.3
+
+# RVM installation ---------------------------------------------------
 test -f '/usr/local/rvm/bin/rvm' || {
     curl -sSL 'https://get.rvm.io' | bash -s 'stable'
 }
