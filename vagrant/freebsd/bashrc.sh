@@ -15,45 +15,48 @@
 
 export VAGRANT_ROOT=/vagrant
 
-test -z  "$PS1" && {
-    cd "${VAGRANT_ROOT}"
-    return $?
-}
+test -n "$PS1" && {
+    export CLICOLOR=yes
+    export GREP_OPTIONS=--color=auto
+    export LESS='-R'
+    export HISTCONTROL=ignoredups
+    export HISTSIZE=5000
+    export HISTFILESIZE=1000
 
-export CLICOLOR=yes
-export GREP_OPTIONS=--color=auto
-export LESS='-R'
-export HISTCONTROL=ignoredups
-export HISTSIZE=5000
-export HISTFILESIZE=1000
-which less > /dev/null && {
-    export PAGER=less
-}
-which vim > /dev/null && {
-    export EDITOR=vim
-    alias vi=vim
-}
-which colordiff > /dev/null && alias diff='colordiff'
+    which less > /dev/null && {
+        export PAGER=less
+    }
 
-shopt -s histappend # append to history rather than overwrite
-shopt -s dotglob    # files beginning with . to be returned in the results of path-name expansion.
+    which vim > /dev/null && {
+        export EDITOR=vim
+        alias vi=vim
+    }
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+    which colordiff > /dev/null && alias diff='colordiff'
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-(test -z "${HOSTNAME}" && ifconfig em0 &>/dev/null) && {
-    export HOSTNAME=$(ifconfig em0 | egrep 'inet [0-9]' | awk '{print $2}')
-}
+    shopt -s histappend # append to history rather than overwrite
+    shopt -s dotglob    # dotfiles returned in path-name expansion
 
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: $(echo "$PWD" | sed "s#^${HOME}#~#" 2>/dev/null || echo "$PWD")\007"'
+    # make less more friendly for non-text input files, see lesspipe(1)
+    test -x /usr/bin/lesspipe && {
+        eval "$(lesspipe)"
+    }
 
-. /usr/local/share/bash-completion/bash_completion.sh &> /dev/null && {
-    complete -cf sudo # Tab complete for sudo
-}
+    (test -z "${HOSTNAME}" && ifconfig em0 &>/dev/null) && {
+        export HOSTNAME=$(ifconfig em0 | awk '$1 == "inet" {print $2}')
+        # export HOSTNAME=$(hostname -I | awk '{print $1}')
+    }
 
-which direnv &> /dev/null && {
-    eval "$(direnv hook bash)"
+    PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: $(echo "$PWD" | sed "s#^${HOME}#~#" 2>/dev/null || echo "$PWD")\007"'
+
+    . /usr/local/share/bash-completion/bash_completion.sh &> /dev/null && {
+        complete -cf sudo
+    }
+
+    which direnv &> /dev/null && {
+        eval "$(direnv hook bash)"
+    }
 }
 
 cd "${VAGRANT_ROOT}"
