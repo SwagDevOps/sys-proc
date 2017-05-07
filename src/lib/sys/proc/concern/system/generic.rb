@@ -14,7 +14,7 @@ module Sys::Proc::Concern::System::Generic
   #
   # When ``progname`` is ``nil`` will use a default ``progname``
   #
-  # @param [String] title
+  # @param [String] progname
   # @return [String]
   def progname=(progname)
     progname ||= default_progname
