@@ -3,6 +3,7 @@
 require 'sys/proc/concern/helper'
 require 'sys/proc/concern/system'
 require 'sys/proc/concern/system/generic'
+require 'sys/proc/system/linux_gnu/lib_c'
 
 # Provides specific Linux-GNU methods
 module Sys::Proc::Concern::System::LinuxGnu
@@ -15,7 +16,7 @@ module Sys::Proc::Concern::System::LinuxGnu
   # @return [String]
   def progname=(progname)
     self.helper.get('system/generic').setprogname(progname) do |s|
-      prctl.set_name(s.progname)
+      libc.setprogname(s.progname)
 
       self.progname
     end
@@ -25,15 +26,13 @@ module Sys::Proc::Concern::System::LinuxGnu
   #
   # @return [String]
   def progname
-    prctl.get_name
+    libc.getprogname
   end
 
   protected
 
-  # @return [Sys::Proc::System::LinuxGnu::Prctl]
-  def prctl
-    require 'sys/proc/system/linux_gnu/prctl'
-
-    return Sys::Proc::System::LinuxGnu::Prctl.new
+  def libc
+    @libc ||= Sys::Proc::System::LinuxGnu::LibC.new
+    @libc
   end
 end
