@@ -3,8 +3,9 @@
 require 'sys/proc/concern/helper'
 require 'sys/proc/concern/system'
 require 'sys/proc/concern/system/generic'
+require 'sys/proc/system/freebsd/lib_c'
 
-# Provides specific Linux-GNU methods
+# Provides specific Freebsd methods
 module Sys::Proc::Concern::System::Freebsd
   extend ActiveSupport::Concern
   include Sys::Proc::Concern::Helper
@@ -15,7 +16,8 @@ module Sys::Proc::Concern::System::Freebsd
   # @return [String]
   def progname=(progname)
     self.helper.get('system/generic').setprogname(progname) do |s|
-      # TODO add specific method
+      libc.setprogname(s.progname)
+
       self.progname
     end
   end
@@ -24,7 +26,13 @@ module Sys::Proc::Concern::System::Freebsd
   #
   # @return [String]
   def progname
-    # TODO replace by specific method
-    self.helper.get('system/generic').progname
+    libc.getprogname
+  end
+
+  protected
+
+  def libc
+    @libc ||= Sys::Proc::System::Freebsd::LibC.new
+    @libc
   end
 end
