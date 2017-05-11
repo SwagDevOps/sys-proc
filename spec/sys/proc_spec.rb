@@ -24,74 +24,45 @@ end
   end
 end
 
-# examples based on system contexts
-self.extend RSpec::DSL
+describe Sys::Proc do
+  context '.progname = nil' do
+    it do
+      subject.progname = nil
 
-if host_os =~ /linux(_|-)gnu/
-  context "when #{host_os}," do
-    describe Sys::Proc do
-      16.times do |i|
-        context '.progname' do
-          let!(:progname) do
-            progname = "proc_#{SecureRandom.hex}"[0..14]
-            subject.progname = progname
-
-            progname
-          end
-
-          it { expect(subject.progname).to eq(progname) }
-
-          it { expect(subject.progname).to eq($PROGRAM_NAME) }
-        end
-      end
-
-      context '.system' do
-        it { expect(subject.system).to equal(:linux_gnu) }
-      end
-
-      context '.system_concern' do
-        it do
-          concern = Sys::Proc::Concern::System::LinuxGnu
-
-          expect(subject.system_concern).to equal(concern)
-        end
-      end
-
-      context '.progname = nil' do
-        it do
-          subject.progname = nil
-
-          expect(subject.progname).to match(/^(rake|rspec)$/)
-        end
-      end
-    end
-
-    describe '$PROGRAM_NAME' do
-      let!(:progname) do
-        Sys::Proc.progname = "proc_#{SecureRandom.hex}"
-        Sys::Proc.progname
-      end
-      let!(:subject) { $PROGRAM_NAME }
-
-      it { expect(subject).to eq(progname) }
+      expect(subject.progname).to match(/^(rake|rspec)$/)
     end
   end
 end
 
-if host_os =~ /^freebsd/
-  describe Sys::Proc do
-    describe '.system' do
-      it { expect(subject.system).to eq(:freebsd) }
-    end
+describe '$PROGRAM_NAME' do
+  let!(:progname) do
+    Sys::Proc.progname = "proc_#{SecureRandom.hex}"
+    Sys::Proc.progname
   end
+  let!(:subject) { $PROGRAM_NAME }
 
+  it { expect(subject).to eq(progname) }
+end
+
+# examples based on system contexts
+self.extend RSpec::DSL
+
+if host_os =~ Regexp.union([/^linux-gnu$/,
+                            /^freebsd([0-9]+\.[0-9]+)*$/])
   context "when #{host_os}," do
     describe Sys::Proc do
-      context '.system_concern' do
-        it do
-          concern = Sys::Proc::Concern::System::Freebsd
+      # context '.system' do
+      #   it { expect(subject.system).to equal(:linux_gnu) }
+      # end
 
-          expect(subject.system_concern).to equal(concern)
+      context '.system_concern.to_s' do
+        it do
+          concern = {
+            linux_gnu: 'Sys::Proc::Concern::System::LinuxGnu',
+            freebsd:   'Sys::Proc::Concern::System::Freebsd'
+          }.fetch(Sys::Proc.system)
+
+          expect(subject.system_concern.to_s).to eq(concern)
         end
       end
 
@@ -107,6 +78,10 @@ if host_os =~ /^freebsd/
           it { expect(subject.progname).to eq(progname) }
 
           it { expect(subject.progname).to eq($PROGRAM_NAME) }
+
+          next if /^linux_gnu$/ !~ Sys::Proc.system.to_s
+
+          it { expect(subject.progname).to be_running.with_pid(subject.pid) }
         end
       end
     end
