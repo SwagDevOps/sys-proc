@@ -2,6 +2,7 @@
 
 require 'fiddle'
 require 'sys/proc/system/freebsd'
+require 'sys/proc/concern/helper'
 
 # The ``getprogname()`` and ``setprogname()`` functions manipulate
 # the name of the current program.
@@ -12,9 +13,7 @@ require 'sys/proc/system/freebsd'
 #
 # @see https://www.freebsd.org/cgi/man.cgi?query=setprogname&sektion=3
 class Sys::Proc::System::Freebsd::LibC
-  def initialize
-    @lib = dlopen
-  end
+  include Sys::Proc::Concern::Helper
 
   # Sets the name of the program
   # to be the last component of the progname argument.
@@ -30,10 +29,8 @@ class Sys::Proc::System::Freebsd::LibC
   #
   # @return [Boolean]
   def setprogname(progname)
-    name = progname.to_s
-    func = make_function('setprogname', [Fiddle::TYPE_VOIDP])
+    function('setprogname', [Fiddle::TYPE_VOIDP]).call(progname.to_s)
 
-    func.call(name)
     true
   end
 
@@ -49,26 +46,17 @@ class Sys::Proc::System::Freebsd::LibC
   #
   # @return [String]
   def getprogname
-    func = make_function('getprogname', nil, Fiddle::TYPE_VOIDP)
-
-    func.call.to_s
+    function('getprogname', nil, Fiddle::TYPE_VOIDP).call.to_s
   end
 
   protected
 
-  # Load the shared library
-  #
-  # @return [Fiddle::Handle]
-  def dlopen
-    Fiddle.dlopen('libc.so.7')
-  end
-
   # Common method binding over system libc
   #
   # @return [Fiddle::Function]
-  def make_function(fname, args = [], ret_type = Fiddle::TYPE_INT)
+  def function(fname, args = [], ret_type = Fiddle::TYPE_INT)
     config = {
-      handle: @lib[fname],
+      handle: helper.get(:lib_c).dlopen[fname],
       args: args || [],
       ret_type: ret_type
     }
