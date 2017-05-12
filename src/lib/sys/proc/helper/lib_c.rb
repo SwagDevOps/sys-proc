@@ -1,0 +1,53 @@
+# frozen_string_literal: true
+
+require 'fiddle'
+require 'sys/proc/helper'
+
+# System helper
+class Sys::Proc::Helper::LibC
+  def initialize
+    @loadeds = {}
+  end
+
+  # ``libc`` shared objects identified by system
+  #
+  # @return [Hash]
+  def loadables
+    {
+      linux_gnu: 'libc.so.6',
+      freebsd: 'libc.so.7',
+    }
+  end
+
+  # Open shared object (by system)
+  #
+  # @param [Symbol] system
+  # @return [self]
+  def dlopen(system = nil)
+    system = (system.nil? ? Sys::Proc.system : system).to_sym
+
+    loadeds[system] ||= Fiddle.dlopen(loadables.fetch(system))
+
+    loadeds[system]
+  end
+
+  # Denote if ``libc`` is seen as availbale on targeted system
+  #
+  # @return [Boolean]
+  def available?(system = nil)
+    begin
+      dlopen(system)
+    rescue Fiddle::DLError
+      return false
+    rescue KeyError
+      return false
+    end
+
+    loadables[system] != nil
+  end
+
+  protected
+
+  # Cache for loaded shared objects
+  attr_reader :loadeds
+end
