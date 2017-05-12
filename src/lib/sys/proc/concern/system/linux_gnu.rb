@@ -8,7 +8,9 @@ require 'sys/proc/system/linux_gnu/prctl'
 # Provides specific Linux-GNU methods
 module Sys::Proc::Concern::System::LinuxGnu
   extend ActiveSupport::Concern
+
   include Sys::Proc::Concern::Helper
+  include Sys::Proc::System::LinuxGnu
 
   # Set program name
   #
@@ -31,8 +33,9 @@ module Sys::Proc::Concern::System::LinuxGnu
 
   protected
 
+  # @return [Sys::Proc::System::LinuxGnu::Prctl]
   def prctl
-    @prctl ||= Sys::Proc::System::LinuxGnu::Prctl.new
+    @prctl ||= Prctl.new
     @prctl
   end
 end
