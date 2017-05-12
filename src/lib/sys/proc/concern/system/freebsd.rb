@@ -8,7 +8,9 @@ require 'sys/proc/system/freebsd/lib_c'
 # Provides specific Freebsd methods
 module Sys::Proc::Concern::System::Freebsd
   extend ActiveSupport::Concern
+
   include Sys::Proc::Concern::Helper
+  include Sys::Proc::System::Freebsd
 
   # Set program name
   #
@@ -31,8 +33,9 @@ module Sys::Proc::Concern::System::Freebsd
 
   protected
 
+  # @return [Sys::Proc::System::Freebsd::LibC]
   def libc
-    @libc ||= Sys::Proc::System::Freebsd::LibC.new
+    @libc ||= LibC.new
     @libc
   end
 end
