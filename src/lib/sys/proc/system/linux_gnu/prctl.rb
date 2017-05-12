@@ -2,6 +2,7 @@
 
 require 'fiddle'
 require 'sys/proc/system/linux_gnu'
+require 'sys/proc/concern/helper'
 
 # Operations on a process
 #
@@ -14,6 +15,7 @@ require 'sys/proc/system/linux_gnu'
 #           unsigned long arg4, unsigned long arg5);
 # ~~~~
 class Sys::Proc::System::LinuxGnu::Prctl
+  include Sys::Proc::Concern::Helper
   attr_reader :function
 
   # Set the name of the calling threadThe attribute is
@@ -26,33 +28,25 @@ class Sys::Proc::System::LinuxGnu::Prctl
   # 16 bytes; the returned string will be null-terminated.
   PR_GET_NAME = 16 # (since Linux 2.6.11)
 
-  def initialize
-    @lib = dlopen
-  end
-
   # Set the name of the calling thread
   #
   # @param [String] name
   # @return [Boolean]
-  # rubocop:disable Style/AccessorMethodName
-  def set_name(name)
+  def setprogname(name)
     name = name.to_s
 
     call(PR_SET_NAME, name).zero?
   end
-  # rubocop:enable Style/AccessorMethodName
 
   # Return the name of the calling thread
   #
   # @return [String]
-  # rubocop:disable Style/AccessorMethodName
-  def get_name
+  def getprogname
     ptr = Fiddle::Pointer.malloc(32, Fiddle::RUBY_FREE.to_i)
 
     call(PR_GET_NAME, ptr.to_i)
     ptr.to_s
   end
-  # rubocop:enable Style/AccessorMethodName
 
   # prctl() is called with a first argument describing what to do (with
   # values defined in <linux/prctl.h>), and further arguments with a
@@ -67,17 +61,10 @@ class Sys::Proc::System::LinuxGnu::Prctl
 
   protected
 
-  # Load the shared library
-  #
-  # @return [Fiddle::Handle]
-  def dlopen
-    Fiddle.dlopen('libc.so.6')
-  end
-
   # @return [Fiddle::Function]
   def function
     config = {
-      handle: @lib['prctl'],
+      handle: helper.get(:lib_c).dlopen['prctl'],
       args: [Fiddle::TYPE_INT, Fiddle::TYPE_VOIDP,
              Fiddle::TYPE_LONG, Fiddle::TYPE_LONG, Fiddle::TYPE_LONG],
       ret_type: Fiddle::TYPE_INT
