@@ -1,15 +1,24 @@
-# A Ruby module to customize the process title
+# A Ruby module to customize the process name
 
-The ``sys-proc`` module allows a process to change its title (as displayed by system tools such as ``ps`` and ``top``).
+The ``sys-proc`` module allows a process to change its name,
+as displayed by system tools such as ``ps`` and ``top``.
+It SHOULD allow (too), depending on system support,
+to __kill__ the renamed process by name, using ``killall``.
+The procedure is hardly portable across different systems.
+At the moment, this module __is fully compatible with GNU/Linux__
+(using ``prctl``). Freebsd is partially supported, using
+``setprogname`` and ``getprogname``
+(provided by the [BSD libc](https://rosettacode.org/wiki/Category:BSD_libc)).
 
+This module provides the necessary architecture to, potentially,
+support even more systems.
+
+<!--
 Changing the title is mostly useful in multi-process systems,
 for example when a master process is forked: changing the children's
 title allows to identify the task each process is busy with.
+-->
 
-The procedure coulbd hardly portable across different systems.
-This module is only compatible with linux (using ``prctl``),
-as fully operational/implemented.
-This module provides the necessary architecture to support even more systems.
 
 ## Installation
 
@@ -24,6 +33,14 @@ git clone https://github.com/SwagDevOps/sys-proc sys-proc
 cd !$
 bundle install --path vendor/bundle
 rake gem:install
+```
+
+## Sample of use
+
+```ruby
+require 'sys/proc'
+
+Sys::Proc.progname = :awesome
 ```
 
 ## Inspirations
