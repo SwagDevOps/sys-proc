@@ -1,10 +1,10 @@
 ---
-major: 0
+major: 1
 minor: 0
-patch: 1
+patch: 0
 authors: ['Dimitri Arrigoni']
 email: 'dimitri@arrigoni.me'
-date: '2017-03-29'
+date: '2017-05-20'
 summary: 'An interface providing cross-platform process operations'
 description: 'An interface providing cross-platform process operations'
 licenses: ['GPL-3.0']
