@@ -1,2 +1,1 @@
-src/lib/**/*.rb
---markup=markdown
+lib/**/*.rb --markup=markdown

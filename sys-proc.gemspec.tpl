@@ -18,9 +18,11 @@ Gem::Specification.new do |s|
   s.homepage    = '#{@homepage}'
 
   s.required_ruby_version = '>= 2.2.2'
-  s.require_paths = ['src/lib']
-  s.files         = Dir.glob('src/**/**.rb') + \
-                    Dir.glob('src/**/version_info.yml')
+  s.require_paths = ['lib']
+  s.files         = ['.yardopts',
+                     'lib/**/*.rb',
+                     'lib/**/version_info.yml'
+                    ].map { |pt| Dir.glob(pt) }.flatten
 
   #{@dependencies}
 end
