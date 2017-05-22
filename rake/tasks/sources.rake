@@ -7,7 +7,7 @@ namespace :sources do
 
     Project::Licenser.process do |process|
       # @todo use ``Gem::Specification``
-      process.patterns += ['src/bin/*']
+      process.patterns += ['./bin/*']
     end
   end
 end

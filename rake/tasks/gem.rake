@@ -5,7 +5,7 @@ task :gem => ['gem:gemspec', 'gem:package']
 
 namespace :gem do
   # desc Rake::Task[:gem].comment
-  task :package => FileList.new('gem:gemspec', 'src/**/*.rb') do
+  task :package => FileList.new('gem:gemspec', 'lib/**/*.rb') do
     require 'rubygems/package_task'
     require 'securerandom'
 

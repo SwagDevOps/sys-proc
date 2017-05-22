@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 file "#{Project.name}.gemspec" => \
-     FileList.new("src/#{Project.name}.gemspec.tpl",
+     FileList.new("#{Project.name}.gemspec.tpl",
                   'Gemfile',
-                  'src/**/*.rb',
-                  'src/**/version_info.yml') do
+                  'lib/**/*.rb',
+                  'lib/**/version_info.yml') do
   [:ostruct, :pathname, :gemspec_deps_gen, :tenjin].each do |required|
     require required.to_s
   end
@@ -15,7 +15,7 @@ file "#{Project.name}.gemspec" => \
   )
 
   files = OpenStruct.new(
-    templated: Pathname.new("src/#{Project.name}.gemspec.tpl"),
+    templated: Pathname.new("#{Project.name}.gemspec.tpl"),
     generated: Pathname.new(Dir.pwd).join("#{Project.name}.gemspec"),
   )
 

@@ -10,7 +10,7 @@ task :doc do
   # internal task name
   tname = 'doc:build:%s' % SecureRandom.hex(4)
   # documented paths
-  paths   = ['src/lib']
+  paths   = ['./lib']
   # extra static files to be included (eg. FAQ)
   statics = Dir.glob(['README.*', 'README'])
 

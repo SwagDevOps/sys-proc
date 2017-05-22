@@ -13,7 +13,7 @@ class Project
     #
     # @return [Class]
     def subject
-      require '%s/src/lib/%s' % [Dir.pwd, Project.name]
+      require '%s/lib/%s' % [Dir.pwd, Project.name]
 
       name = self.name.to_s.gsub('-', '/')
       inflector.constantize(inflector.classify(name))
