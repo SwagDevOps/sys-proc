@@ -8,7 +8,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-if Pathname.new(__dir__).join('..', 'Gemfile.lock').file?
+if File.file?("#{__dir__}/../Gemfile.lock")
   require 'rubygems'
   require 'bundler'
 
@@ -17,31 +17,35 @@ end
 
 $LOAD_PATH.unshift __dir__
 
-if 'development' == ENV['PROJECT_MODE']
-  require 'bundler/setup' if Kernel.const_defined?('Bundle')
+if File.file?("#{__dir__}/../Gemfile.lock")
+  if 'development' == ENV['PROJECT_MODE']
+    require 'bundler/setup'
 
-  require 'pp'
-  begin
-    require 'coderay'
-    require 'pry/color_printer'
-  rescue LoadError => e
-    warn('%s: %s' % [caller[0], e.message])
-  end
+    require 'pp'
+    begin
+      require 'coderay'
+      require 'pry/color_printer'
+    rescue LoadError => e
+      # rubocop:disable Performance/Caller
+      warn('%s: %s' % [caller[0], e.message])
+      # rubocop:enable Performance/Caller
+    end
 
-  # Outputs obj to out in pretty printed format of width columns in width.
-  #
-  # If out is omitted, ``STDOUT`` is assumed.
-  # If width is omitted, ``79`` is assumed.
-  #
-  # @param [Object] obj
-  # @param [IO] out
-  # @param [Fixnum] width
-  # @see http://ruby-doc.org/stdlib-2.2.0/libdoc/pp/rdoc/PP.html
-  def pp(obj, out = STDOUT, width = 79)
-    args = [obj, out, width].compact
-    colorable = (out.isatty and Kernel.const_defined?('Pry::ColorPrinter'))
+    # Outputs obj to out in pretty printed format of width columns in width.
+    #
+    # If out is omitted, ``STDOUT`` is assumed.
+    # If width is omitted, ``79`` is assumed.
+    #
+    # @param [Object] obj
+    # @param [IO] out
+    # @param [Fixnum] width
+    # @see http://ruby-doc.org/stdlib-2.2.0/libdoc/pp/rdoc/PP.html
+    def pp(obj, out = STDOUT, width = 79)
+      args = [obj, out, width].compact
+      colorable = (out.isatty and Kernel.const_defined?('Pry::ColorPrinter'))
 
-    (colorable ? Pry::ColorPrinter : PP).pp(*args)
+      (colorable ? Pry::ColorPrinter : PP).pp(*args)
+    end
   end
 end
 
