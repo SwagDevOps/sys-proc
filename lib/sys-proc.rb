@@ -8,11 +8,17 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
+if Pathname.new(__dir__).join('..', 'Gemfile.lock').file?
+  require 'rubygems'
+  require 'bundler'
+
+  Bundler.setup(:default)
+end
+
 $LOAD_PATH.unshift __dir__
 
 if 'development' == ENV['PROJECT_MODE']
-  require 'rubygems'
-  require 'bundler/setup'
+  require 'bundler/setup' if Kernel.const_defined?('Bundle')
 
   require 'pp'
   begin
@@ -31,7 +37,7 @@ if 'development' == ENV['PROJECT_MODE']
   # @param [IO] out
   # @param [Fixnum] width
   # @see http://ruby-doc.org/stdlib-2.2.0/libdoc/pp/rdoc/PP.html
-  def pp(obj, out = STDOUT, width = nil)
+  def pp(obj, out = STDOUT, width = 79)
     args = [obj, out, width].compact
     colorable = (out.isatty and Kernel.const_defined?('Pry::ColorPrinter'))
 
