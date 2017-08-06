@@ -1,12 +1,12 @@
 ---
 major: 1
 minor: 0
-patch: 3
+patch: 4
 authors: ['Dimitri Arrigoni']
 email: 'dimitri@arrigoni.me'
-date: '2017-08-05'
-summary: 'An interface providing cross-platform process operations'
-description: 'An interface providing cross-platform process operations'
+date: '2017-08-06'
+summary: 'A cross-platform interface to customize the process name'
+description: 'A cross-platform interface to customize the process name'
 licenses: ['GPL-3.0']
 license_header: 'Copyright (C) 2017 Dimitri Arrigoni <dimitri@arrigoni.me>
 License GPLv3+: GNU GPL version 3 or later
