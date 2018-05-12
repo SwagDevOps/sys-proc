@@ -2,7 +2,8 @@
 
 file "#{Project.name}.gemspec" => \
      FileList.new("#{Project.name}.gemspec.tpl",
-                  'Gemfile',
+                  'gems.rb',
+                  'gems.locked',
                   'lib/**/*.rb',
                   'lib/**/version_info.yml') do
   [:ostruct, :pathname, :gemspec_deps_gen, :tenjin].each do |required|
