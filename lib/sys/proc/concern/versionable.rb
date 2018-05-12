@@ -6,15 +6,21 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
+require_relative '../concern'
 require 'pathname'
-
-require 'sys/proc/concern'
+require 'version_info'
 
 # Provides a standardized way to use ``VersionInfo``
 module Sys::Proc::Concern::Versionable
-  extend ActiveSupport::Concern
 
-  included { version_info }
+
+  class << self
+    def included(base)
+      base.extend(ClassMethods)
+
+      base.version_info
+    end
+  end
 
   module ClassMethods
     def version_info

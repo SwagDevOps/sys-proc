@@ -62,7 +62,7 @@ if host_os =~ Regexp.union([/^linux-gnu$/,
             freebsd:   'Sys::Proc::Concern::System::Freebsd'
           }.fetch(Sys::Proc.system)
 
-          expect(subject.system_concern.to_s).to eq(concern)
+          expect(subject.__send__(:system_concern).to_s).to eq(concern)
         end
       end
 

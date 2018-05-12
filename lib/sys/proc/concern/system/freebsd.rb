@@ -13,8 +13,6 @@ require 'sys/proc/system/freebsd/lib_c'
 
 # Provides specific Freebsd methods
 module Sys::Proc::Concern::System::Freebsd
-  extend ActiveSupport::Concern
-
   include Sys::Proc::Concern::Helper
   include Sys::Proc::System::Freebsd
 

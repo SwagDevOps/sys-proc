@@ -42,9 +42,9 @@ class Project
 
     # @return [ActiveSupport::Inflector]
     def inflector
-      require 'active_support/inflector'
+      require 'dry/inflector'
 
-      ActiveSupport::Inflector
+      Dry::Inflector.new
     end
   end
 end

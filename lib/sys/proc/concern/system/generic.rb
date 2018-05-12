@@ -14,8 +14,6 @@ require 'sys/proc/concern/system'
 # in other system(s) specific modules.
 # This is the default (included) module when specific module is missing.
 module Sys::Proc::Concern::System::Generic
-  extend ActiveSupport::Concern
-
   # Set program name
   #
   # When ``progname`` is ``nil`` will use a default ``progname``

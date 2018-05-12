@@ -11,7 +11,6 @@ require 'sys/proc/helper'
 
 # Provides access to helpers
 module Sys::Proc::Concern::Helper
-  extend ActiveSupport::Concern
 
   protected
 

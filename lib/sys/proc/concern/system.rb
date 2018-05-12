@@ -13,11 +13,17 @@ require 'sys/proc/concern/helper'
 #
 # This ``Concern`` loads system (OS) related sub-concern (specialisation)
 module Sys::Proc::Concern::System
-  extend ActiveSupport::Concern
   include Sys::Proc::Concern::Helper
 
-  # Related concern is included recursively
-  included { include system_concern }
+  class << self
+    include Sys::Proc::Concern::Helper
+
+    def included(base)
+      # Related concern is included recursively
+
+      base.include(base.new.__send__(:system_concern))
+    end
+  end
 
   # Identify operating system
   #
@@ -25,6 +31,8 @@ module Sys::Proc::Concern::System
   def system
     (@system || helper.get(:system).identify).to_sym
   end
+
+  protected
 
   # Get operating system related concern
   #

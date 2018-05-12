@@ -10,7 +10,11 @@ require 'sys/proc/concern'
 
 # Provides static accesses
 module Sys::Proc::Concern::StaticInstance
-  extend ActiveSupport::Concern
+  class << self
+    def included(base)
+      base.extend(ClassMethods)
+    end
+  end
 
   module ClassMethods
     # Provides access to instance methods
