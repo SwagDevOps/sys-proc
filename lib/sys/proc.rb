@@ -50,4 +50,12 @@ class Sys::Proc
   def pid
     $PROCESS_ID
   end
+
+  # Time in seconds since system boot
+  #
+  # @see https://blog.dnsimple.com/2018/03/elapsed-time-with-ruby-the-right-way/
+  # @return [Float]
+  def uptime
+    Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  end
 end
