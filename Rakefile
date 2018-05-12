@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'rubygems'
-require 'bundler/setup'
+require_relative 'lib/sys-proc'
+require 'sys/proc'
 require 'pathname'
 
-$LOAD_PATH.unshift Pathname.new(__dir__).join('rake', 'lib')
-
+$LOAD_PATH.unshift Pathname.new(__dir__).join('rake/lib')
 require 'project'
 
 Dir.glob('rake/**/*.rake').each {|f| load(f)}
