@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-#
+
 # bundle install --path vendor/bundle
 source 'https://rubygems.org'
 
-gem 'activesupport', '~> 5.1'
+gem 'dry-inflector', '~> 0.1', '< 0.2'
 gem 'version_info', '~> 1.9'
 
 group :development do

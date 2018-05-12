@@ -8,11 +8,12 @@
 
 require 'sys/proc/helper'
 
+# Inflector built on top of ``Dry::Inflector``
 class Sys::Proc::Helper::Inflector
   def initialize
-    require 'active_support/inflector'
+    require 'dry/inflector'
 
-    @inflector = ActiveSupport::Inflector
+    @inflector = Dry::Inflector.new
   end
 
   # Load constant from a loadable/requirable path
