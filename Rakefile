@@ -4,6 +4,8 @@ require_relative 'lib/sys-proc'
 require 'sys/proc'
 require 'kamaze/project'
 
+Sys::Proc.progname = nil
+
 Kamaze.project do |project|
   project.subject = Sys::Proc
   project.name    = 'sys-proc'
@@ -14,7 +16,7 @@ Kamaze.project do |project|
     'gem',
     'shell', 'sources:license',
     'test',
-    'version:edit',
+    'vagrant', 'version:edit',
   ]
 end.load!
 
