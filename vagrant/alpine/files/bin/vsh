@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# This script script is intended to easyfy remote (ssh)
+# commands execution.
+#
+# Sample of use:
+#
+# ```sh
+# vsh bundle exec rspec
+# ```
+
+set -e
+. /etc/profile.d/rvm.sh &> /dev/null
+
+cd /vagrant
+exec $@

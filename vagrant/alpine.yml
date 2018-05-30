@@ -1,0 +1,92 @@
+# @see https://github.com/maier/vagrant-alpine
+# vagrant plugin install vagrant-alpine
+---
+image: 'alpine/alpine64:3.7.0'
+provider: :virtualbox
+requires:
+  - 'vagrant-alpine/plugin'
+  - 'vagrant/alpine/ruby/guest_alpine.rb'
+modifyvm:
+  - ['memory', 128]
+  - ['cpus', 1]
+  - ['cpuexecutioncap', 80]
+  - ['hwvirtex', 'on']
+  - ['audio', 'none']
+  - ['vram', 1]
+  - ['vrde', 'off']
+  - ['nictype1', 'virtio']
+  - ['nictype2', 'virtio']
+  - ['cableconnected1', 'on']
+synced_folders:
+  - :folders: ['.', '/vagrant']
+    :type: 'rsync'
+    :args: ['-vaz', '--copy-links', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude:
+      - '.#*'
+      - '*_flymake.*'
+      - '.git/'
+      - 'Vagrantfile'
+      - 'vagrant/'
+      - '.yardoc/'
+      - 'doc/'
+      - 'build/'
+      - 'cache/'
+      - 'vendor/'
+  - :folders: ['lib', '/vagrant/lib']
+    :type: 'rsync'
+    :rsync__args: ['-vaz', '--copy-links', '--delete-excluded', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude: ['.#*', '*_flymake.*']
+  - :folders: ['spec', '/vagrant/spec']
+    :type: 'rsync'
+    :rsync__args: ['-vaz', '--copy-links', '--delete-excluded', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude: ['.#*', '*_flymake.*']
+provisions:
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/alpine/files/bin'
+    :destination: '/tmp/bin'
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/alpine/files/conf/vimrc'
+    :destination: '/home/vagrant/.vim/vimrc'
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/alpine/files/conf/bashrc.sh'
+    :destination: '/home/vagrant/.bashrc'
+  - :type: :shell
+    :preserve_order: true
+    :path: 'vagrant/alpine/provisions/base.sh'
+  - :type: :shell
+    :preserve_order: true
+    :path: 'vagrant/alpine/provisions/rvm.sh'
+  - :type: :shell
+    :run: always
+    :preserve_order: true
+    :path: 'vagrant/alpine/provisions/files-bin.sh'
+  - :type: :shell
+    :run: always
+    :preserve_order: true
+    :inline: 'chmod o+r /proc/devices'
+  - :type: :shell
+    :run: always
+    :preserve_order: true
+    :inline: 'vsh rm -rfv .bundle/config'
+  - :type: :shell
+    :run: always
+    :privileged: false
+    :preserve_order: true
+    :inline: 'vsh bundle install --path vendor/bundle --no-deployment --jobs=$(nproc)'
+ssh:
+  aliases:
+    bundle: 'vsh bundle'
+    rake:   'vsh bundle exec rake'
+    rspec:  'vsh bundle exec rspec'
