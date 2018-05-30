@@ -4,13 +4,14 @@ require 'securerandom'
 
 # class methods
 describe Sys::Proc do
-  { version_info: 0, new: 0, VERSION: 0 }.each do |method, n|
-    it { expect(described_class).to respond_to(method) }
-
-    it { expect(described_class).to respond_to(method).with(n).arguments }
-  end
-
+  it { expect(described_class).to respond_to(:new).with(0).arguments }
   it { expect(described_class).to define_constant('VERSION') }
+
+  context '::VERSION' do
+    it do
+      expect(described_class.const_get(:VERSION)).to be_a(Sys::Proc::Version)
+    end
+  end
 end
 
 # instance methods are available as class methods

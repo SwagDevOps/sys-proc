@@ -10,6 +10,15 @@ require 'English'
 
 # The Sys module is only used as a namespace
 module Sys
+  # rubocop:disable Style/Documentation
+
+  class Proc
+    require_relative 'proc/version'
+
+    VERSION = Version.new.freeze
+  end
+
+  # rubocop:enable Style/Documentation
 end
 
 # Operations on current process
@@ -18,11 +27,10 @@ end
 # @see http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html
 class Sys::Proc
   require 'singleton'
-  %i{versionable system static_instance}.each do |req|
+  %i{system static_instance}.each do |req|
     require "sys/proc/concern/#{req}"
   end
 
-  include Concern::Versionable
   include Concern::StaticInstance
   include Concern::System
 
