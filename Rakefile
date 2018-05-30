@@ -14,6 +14,7 @@ Kamaze.project do |project|
     'cs:pre-commit',
     'doc', 'doc:watch',
     'gem',
+    'misc:gitignore',
     'shell', 'sources:license',
     'test',
     'vagrant', 'version:edit',
