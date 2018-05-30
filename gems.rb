@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 
 group :default do
   gem 'dry-inflector', '~> 0.1'
-  gem 'version_info', '~> 1.9'
 end
 
 group :development do

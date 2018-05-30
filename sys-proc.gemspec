@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
                     ].map { |pt| Dir.glob(pt) }.flatten
 
   s.add_runtime_dependency("dry-inflector", ["~> 0.1"])
-  s.add_runtime_dependency("version_info", ["~> 1.9"])
 end
 
 # Local Variables:
