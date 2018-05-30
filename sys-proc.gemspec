@@ -8,10 +8,10 @@
 
 Gem::Specification.new do |s|
   s.name        = 'sys-proc'
-  s.version     = '1.0.5'
-  s.date        = '2018-05-12'
-  s.summary     = 'A cross-platform interface to customize the process name'
-  s.description = 'A cross-platform interface to customize the process name'
+  s.version     = '1.1.0'
+  s.date        = '2018-05-30'
+  s.summary     = 'Cross-platform interface to customize process name'
+  s.description = 'A cross-platform interface to customize process name'
 
   s.licenses    = ["GPL-3.0"]
   s.authors     = ["Dimitri Arrigoni"]

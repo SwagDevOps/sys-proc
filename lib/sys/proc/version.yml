@@ -1,16 +1,17 @@
 ---
 major: 1
-minor: 0
-patch: 5
+minor: 1
+patch: 0
 authors: ['Dimitri Arrigoni']
 email: 'dimitri@arrigoni.me'
-date: '2018-05-12'
-summary: 'A cross-platform interface to customize the process name'
-description: 'A cross-platform interface to customize the process name'
+date: '2018-05-30'
+summary: 'Cross-platform interface to customize process name'
+description: 'A cross-platform interface to customize process name'
 licenses: ['GPL-3.0']
-license_header: 'Copyright (C) 2017 Dimitri Arrigoni <dimitri@arrigoni.me>
-License GPLv3+: GNU GPL version 3 or later
-<http://www.gnu.org/licenses/gpl.html>.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.'
+license_header: |
+  Copyright (C) 2017-2018 Dimitri Arrigoni <dimitri@arrigoni.me>
+  License GPLv3+: GNU GPL version 3 or later
+  <http://www.gnu.org/licenses/gpl.html>.
+  This is free software: you are free to change and redistribute it.
+  There is NO WARRANTY, to the extent permitted by law.
 homepage: 'https://github.com/SwagDevOps/sys-proc'
