@@ -1,6 +1,5 @@
 " vim:ff=unix ts=4 ss=4
 
-set number
 set background=dark
 
 " yank to clipboard

@@ -1,47 +1,91 @@
 # @see https://atlas.hashicorp.com/bento/boxes/freebsd-11.0
 # @see https://groups.google.com/forum/#!topic/vagrant-up/dNnloUOVCI4
 ---
-image: 'bento/freebsd-11.0'
-guest: !ruby/symbol freebsd
-synced_folder:
-  - ['.', '/vagrant']
-  - {!ruby/symbol id: 'vagrant-root',
-     !ruby/symbol type: 'rsync',
-     !ruby/symbol rsync__args: ['-vaz', '--copy-links'],
-     !ruby/symbol rsync__verbose: true,
-     !ruby/symbol rsync__auto: true,
-     !ruby/symbol rsync__exclude: [
-       '**/.#*', '**/*_flymake.*', '**/.git*',
-       'Vagrantfile', 'vagrant/',
-       'doc/', 'pkg/', 'vendor/', '*.gemspec', '.yardoc/',
-    ]}
+image: 'bento/freebsd-11.0:2.3.8'
+provider: :virtualbox
+guest: :freebsd
+hostname: 'freebsd'
+modifyvm:
+  - ['memory', 128]
+  - ['cpus', 1]
+  - ['cpuexecutioncap', 80]
+  - ['hwvirtex', 'on']
+  - ['audio', 'none']
+  - ['vram', 1]
+  - ['vrde', 'off']
+  - ['nictype1', 'virtio']
+  - ['nictype2', 'virtio']
+  - ['cableconnected1', 'on']
+networks:
+  - - ['private_network']
+    - :type: 'dhcp'
+      :adapter: 2
+synced_folders:
+  - :folders: ['.', '/vagrant']
+    :type: 'rsync'
+    :args: ['-vaz', '--copy-links', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude:
+      - '.#*'
+      - '*_flymake.*'
+      - '.git/'
+      - 'Vagrantfile'
+      - 'vagrant/'
+      - '.yardoc/'
+      - 'doc/'
+      - 'build/'
+      - 'cache/'
+      - 'vendor/'
+  - :folders: ['lib', '/vagrant/lib']
+    :type: 'rsync'
+    :rsync__args: ['-vaz', '--copy-links', '--delete-excluded', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude: ['.#*', '*_flymake.*']
+  - :folders: ['spec', '/vagrant/spec']
+    :type: 'rsync'
+    :rsync__args: ['-vaz', '--copy-links', '--delete-excluded', '--delete']
+    :rsync__verbose: true
+    :rsync__auto: true
+    :rsync__exclude: ['.#*', '*_flymake.*']
 provisions:
-  - [['file'], {
-      !ruby/symbol source: 'vagrant/freebsd/bashrc.sh',
-      !ruby/symbol destination: '/home/vagrant/.bashrc',
-    }]
-  - [['file'], {
-      !ruby/symbol source: 'vagrant/freebsd/vimrc',
-      !ruby/symbol destination: '/home/vagrant/.vim/vimrc',
-    }]
-  - [['shell'], {!ruby/symbol path: 'vagrant/freebsd/provision.sh'}]
-providers:
-  virtualbox:
-    vm:
-      - ['network', ['private_network'], {
-          !ruby/symbol type: 'dhcp',
-          !ruby/symbol adapter: 2,
-        }]
-    customize:
-      - ['modifyvm', !ruby/symbol id, '--memory', 128]
-      - ['modifyvm', !ruby/symbol id, '--cpus', 1]
-      - ['modifyvm', !ruby/symbol id, '--cpuexecutioncap', 80]
-      - ['modifyvm', !ruby/symbol id, '--hwvirtex', 'on']
-      - ['modifyvm', !ruby/symbol id, '--audio', 'none']
-      - ['modifyvm', !ruby/symbol id, '--vram', 1]
-      - ['modifyvm', !ruby/symbol id, '--vrde', 'off']
-      - ['modifyvm', !ruby/symbol id, '--nictype1', 'virtio']
-      - ['modifyvm', !ruby/symbol id, '--nictype2', 'virtio']
-      - ['modifyvm', !ruby/symbol id, '--cableconnected1', 'on']
-ssh_commands:
-  rspec: 'bash -cl ". .env && bundle exec rspec"'
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/freebsd/files/bin'
+    :destination: '/tmp/bin'
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/freebsd/files/conf/bashrc.sh'
+    :destination: '/home/vagrant/.bashrc'
+  - :type: :file
+    :run: always
+    :preserve_order: true
+    :source: 'vagrant/freebsd/files/conf/vimrc'
+    :destination: '/home/vagrant/.vim/vimrc'
+  - :type: :shell
+    :preserve_order: true
+    :path: 'vagrant/freebsd/provisions/base.sh'
+  - :type: :shell
+    :preserve_order: true
+    :path: 'vagrant/freebsd/provisions/rvm.sh'
+  - :type: :shell
+    :run: always
+    :preserve_order: true
+    :path: 'vagrant/freebsd/provisions/files-bin.sh'
+  - :type: :shell
+    :run: always
+    :preserve_order: true
+    :inline: 'vsh rm -rfv .bundle/config'
+  - :type: :shell
+    :run: always
+    :privileged: false
+    :preserve_order: true
+    :inline: 'vsh bundle install --no-deployment --clean --path vendor/bundle --jobs=$(nproc)'
+ssh:
+  aliases:
+    bundle: 'vsh bundle'
+    rake:   'vsh bundle exec rake'
+    rspec:  'vsh bundle exec rspec'
