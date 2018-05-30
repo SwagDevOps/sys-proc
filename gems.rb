@@ -3,12 +3,16 @@
 # bundle install --path vendor/bundle
 source 'https://rubygems.org'
 
-gem 'dry-inflector', '~> 0.1'
-gem 'version_info', '~> 1.9'
+group :default do
+  gem 'dry-inflector', '~> 0.1'
+  gem 'version_info', '~> 1.9'
+end
 
 group :development do
   gem 'kamaze-project', '~> 1.0'
   gem 'listen', '~> 3.1'
+  gem 'pry', '~> 0.11'
+  gem 'pry-coolline', '~> 0.2'
 end
 
 group :doc, :development do
