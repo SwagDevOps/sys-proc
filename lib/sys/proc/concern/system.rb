@@ -6,8 +6,8 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/concern'
-require 'sys/proc/concern/helper'
+require_relative '../concern'
+require_relative 'helper'
 
 # Provides Operating System related methods
 #
@@ -42,9 +42,8 @@ module Sys::Proc::Concern::System
 
     begin
       inflector.resolve("sys/proc/concern/system/#{system}")
-    rescue LoadError => e
+    rescue LoadError
       # m = /^cannot load such file -- #{Regexp.quote(system)}/ =~ e.to_s
-
       inflector.resolve('sys/proc/concern/system/generic')
     end
   end
