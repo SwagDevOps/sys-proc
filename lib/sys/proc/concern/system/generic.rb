@@ -6,7 +6,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/concern/system'
+require_relative '../system'
 
 # Provides generic methods
 #
@@ -23,8 +23,6 @@ module Sys::Proc::Concern::System::Generic
   def progname=(progname)
     progname ||= default_progname
     $PROGRAM_NAME = progname.to_s
-
-    progname
   end
 
   # Get program name
@@ -38,7 +36,7 @@ module Sys::Proc::Concern::System::Generic
   #
   # @return [String]
   def default_progname
-    file = caller[-1].split(/:[0-9]+:in\s/).fetch(0)
+    file = caller.last.split(/:[0-9]+:in\s/).fetch(0)
 
     File.basename(file, '.rb')
   end
