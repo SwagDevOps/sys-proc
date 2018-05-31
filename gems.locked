@@ -14,7 +14,7 @@ GEM
     ffi (1.9.23)
     github-markup (2.0.0)
     hitimes (1.2.6)
-    kamaze-project (1.0.1)
+    kamaze-project (1.0.2)
       cli-ui (~> 1.1)
       cliver (~> 0.3)
       dotenv (~> 2.4)
