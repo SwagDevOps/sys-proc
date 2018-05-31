@@ -6,7 +6,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/concern'
+require_relative '../concern'
 
 # Provides static accesses
 module Sys::Proc::Concern::StaticInstance
@@ -16,6 +16,7 @@ module Sys::Proc::Concern::StaticInstance
     end
   end
 
+  # Class methods
   module ClassMethods
     # Provides access to instance methods
     def method_missing(method, *args, &block)
