@@ -6,12 +6,11 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/concern'
-require 'sys/proc/helper'
+require_relative '../concern'
+require_relative '../helper'
 
 # Provides access to helpers
 module Sys::Proc::Concern::Helper
-
   protected
 
   # @return [Sys::Proc::Helper]
