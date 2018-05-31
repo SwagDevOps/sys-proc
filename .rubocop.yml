@@ -1,28 +1,4 @@
-# see:
-# http://relaxed.ruby.style/
-# https://github.com/bbatsov/rubocop/blob/master/manual/cops.md
-# https://github.com/bbatsov/rubocop/tree/master/config
-# https://raw.githubusercontent.com/bbatsov/rubocop/master/config/enabled.yml
-# https://github.com/tootsuite/mastodon/blob/master/.rubocop.yml
-
-AllCops: { DisplayCopNames: true, TargetRubyVersion: 2.3 }
-Layout/EmptyLineAfterMagicComment: { Enabled: false }
-Lint/UnusedBlockArgument: { Enabled: false }
-Metrics/AbcSize: { Max: 20 }
-Metrics/ClassLength: { CountComments: false }
-Metrics/CyclomaticComplexity: { Max: 10 }
-Metrics/MethodLength: { CountComments: false, Max: 10 }
-Metrics/ModuleLength: { CountComments: false }
-Style/AndOr: { Enabled: false }
-Style/ClassAndModuleChildren: { Enabled: false }
-Style/DoubleNegation: { Enabled: false }
-Style/Encoding: { Enabled: false }
-Style/FormatString: { Enabled: false }
-Style/IfUnlessModifier: { Enabled: false }
-Style/MultilineBlockChain: { Enabled: false }
-Style/RedundantReturn: { Enabled: false }
-Style/RedundantSelf: { Enabled: false }
-Style/Send: { Enabled: true }
-Style/SymbolArray: { Enabled: false }
-Style/TrailingCommaInLiteral: { Enabled: false }
-Style/YodaCondition: { Enabled: false }
+---
+inherit_gem:
+  kamaze-project:
+    - .rubocop.yml
