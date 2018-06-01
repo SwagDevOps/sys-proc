@@ -14,6 +14,7 @@ GEM
     ffi (1.9.23)
     github-markup (2.0.0)
     hitimes (1.2.6)
+    interesting_methods (0.1.2)
     kamaze-project (1.0.2)
       cli-ui (~> 1.1)
       cliver (~> 0.3)
@@ -106,12 +107,15 @@ PLATFORMS
 DEPENDENCIES
   dry-inflector (~> 0.1)
   github-markup (~> 2.0)
+  interesting_methods (~> 0.1)
   kamaze-project (~> 1.0)
   listen (~> 3.1)
   pry (~> 0.11)
   pry-coolline (~> 0.2)
   redcarpet (~> 3.4)
   rspec (~> 3.7)
+  rubocop (~> 0.56)
+  yard (~> 0.9)
 
 BUNDLED WITH
    1.16.1

@@ -10,16 +10,24 @@ end
 group :development do
   gem 'kamaze-project', '~> 1.0'
   gem 'listen', '~> 3.1'
+  gem 'rubocop', '~> 0.56'
+end
+
+group :development, :repl do
+  gem 'interesting_methods', '~> 0.1'
   gem 'pry', '~> 0.11'
   gem 'pry-coolline', '~> 0.2'
 end
 
-group :doc, :development do
-  # Github Flavored Markdown in YARD
+group :development, :doc do
+  gem 'yard', '~> 0.9'
+end
+
+group :development, :doc, :markdown do
   gem 'github-markup', '~> 2.0'
   gem 'redcarpet', '~> 3.4'
 end
 
-group :test, :development do
+group :development, :test do
   gem 'rspec', '~> 3.7'
 end
