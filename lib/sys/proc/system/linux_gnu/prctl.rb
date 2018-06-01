@@ -7,8 +7,8 @@
 # There is NO WARRANTY, to the extent permitted by law.
 
 require 'fiddle'
-require 'sys/proc/system/linux_gnu'
-require 'sys/proc/concern/helper'
+require_relative '../linux_gnu'
+require_relative '../../helper'
 
 # Operations on a process
 #
@@ -22,7 +22,6 @@ require 'sys/proc/concern/helper'
 # ~~~~
 class Sys::Proc::System::LinuxGnu::Prctl
   include Sys::Proc::Concern::Helper
-  attr_reader :function
 
   # Set the name of the calling threadThe attribute is
   # likewise accessible via /proc/self/task/[tid]/comm, where tid
