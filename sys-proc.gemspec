@@ -8,8 +8,8 @@
 
 Gem::Specification.new do |s|
   s.name        = 'sys-proc'
-  s.version     = '1.1.0'
-  s.date        = '2018-05-30'
+  s.version     = '1.1.1'
+  s.date        = '2018-06-01'
   s.summary     = 'Cross-platform interface to customize process name'
   s.description = 'A cross-platform interface to customize process name'
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files         = ['.yardopts',
                      'lib/**/*.rb',
-                     'lib/**/version_info.yml'
+                     'lib/**/version.yml'
                     ].map { |pt| Dir.glob(pt) }.flatten
 
   s.add_runtime_dependency("dry-inflector", ["~> 0.1"])
