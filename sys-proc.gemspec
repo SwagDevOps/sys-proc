@@ -8,7 +8,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'sys-proc'
-  s.version     = '1.1.1'
+  s.version     = '1.1.2'
   s.date        = '2018-06-01'
   s.summary     = 'Cross-platform interface to customize process name'
   s.description = 'A cross-platform interface to customize process name'

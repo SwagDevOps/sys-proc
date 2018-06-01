@@ -26,10 +26,11 @@ end
 end
 
 describe Sys::Proc do
+  let(:matcher) { /^(ruby(_executable_hooks){0,1}|rake|rspec)$/ }
+  # Using a default progname
   before(:all) { described_class.progname = nil }
-  let(:matcher) { /^(bundle|rake|rspec)$/ }
 
-  context '.progname = nil' do
+  context '.progname' do
     it { expect(subject.progname).to match(matcher) }
   end
 end
