@@ -24,10 +24,8 @@ class Sys::Proc::Version
   # @param [String] file_name
   def initialize(file_name = self.class.file_name)
     @file_name = file_name.freeze
-
-    self.load_file
-        .map { |k, v| self.attr_set(k, v) }
-        .yield_self { |loaded| @data_loaded = loaded.to_h }
+    @data_loaded = self.load_file
+                       .map { |k, v| self.attr_set(k, v) }.to_h
   end
 
   # Denote version has enough (mninimal) attributes defined.
@@ -71,13 +69,12 @@ class Sys::Proc::Version
 
   protected
 
+  # @return [Hash]
   attr_reader :data_loaded
 
   # @return [Hash]
   def load_file
-    YAML.load_file(file_name).yield_self do |data|
-      data == false ? {} : data
-    end
+    YAML.load_file(file_name) || {}
   rescue Errno::ENOENT
     {}
   end
