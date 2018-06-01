@@ -27,8 +27,8 @@ end
 # @see http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html
 class Sys::Proc
   require 'singleton'
-  %i{system static_instance}.each do |req|
-    require "sys/proc/concern/#{req}"
+  %i[system static_instance].each do |req|
+    require_relative "proc/concern/#{req}"
   end
 
   include Concern::StaticInstance
