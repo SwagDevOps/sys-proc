@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'sys/proc'
 require 'securerandom'
 
 # class methods
@@ -26,7 +27,7 @@ end
 end
 
 describe Sys::Proc do
-  let(:matcher) { /^(ruby(_executable_hooks){0,1}|rake|rspec)$/ }
+  let(:matcher) { /^(ruby(_executable(_hooks){0,1}){0,1}|rake|rspec)$/ }
   # Using a default progname
   before(:all) { described_class.progname = nil }
 
