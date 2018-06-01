@@ -26,12 +26,11 @@ end
 end
 
 describe Sys::Proc do
-  context '.progname = nil' do
-    it do
-      subject.progname = nil
+  before(:all) { described_class.progname = nil }
+  let(:matcher) { /^(bundle|rake|rspec)$/ }
 
-      expect(subject.progname).to match(/^(rake|rspec)$/)
-    end
+  context '.progname = nil' do
+    it { expect(subject.progname).to match(matcher) }
   end
 end
 
