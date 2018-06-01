@@ -36,7 +36,9 @@ module Sys::Proc::Concern::System::Generic
   #
   # @return [String]
   def default_progname
-    file = caller.last.split(/:[0-9]+:in\s/).fetch(0)
+    file = caller.grep(/in `<main>'$/)
+                 .fetch(0)
+                 .split(/:[0-9]+:in\s/).fetch(0)
 
     File.basename(file, '.rb')
   end
