@@ -6,7 +6,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc'
+require_relative '../proc'
 
 # Provides access to helper classes
 class Sys::Proc::Helper
@@ -15,7 +15,7 @@ class Sys::Proc::Helper
   protected def initialize
     @items = {
       inflector: proc do
-        require 'sys/proc/helper/inflector'
+        require_relative 'helper/inflector'
 
         Inflector.new
       end.call

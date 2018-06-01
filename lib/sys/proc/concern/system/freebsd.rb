@@ -6,10 +6,9 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/concern/helper'
-require 'sys/proc/concern/system'
-require 'sys/proc/concern/system/generic'
-require 'sys/proc/system/freebsd/lib_c'
+require_relative '../../helper'
+require_relative '../system/generic'
+require_relative '../../system/freebsd/lib_c'
 
 # Provides specific Freebsd methods
 module Sys::Proc::Concern::System::Freebsd

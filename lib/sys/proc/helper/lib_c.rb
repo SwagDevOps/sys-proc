@@ -7,7 +7,7 @@
 # There is NO WARRANTY, to the extent permitted by law.
 
 require 'fiddle'
-require 'sys/proc/helper'
+require_relative '../helper'
 
 # System helper
 class Sys::Proc::Helper::LibC

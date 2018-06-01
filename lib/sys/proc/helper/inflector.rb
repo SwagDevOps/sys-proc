@@ -6,7 +6,7 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/helper'
+require_relative '../helper'
 
 # Inflector built on top of ``Dry::Inflector``
 class Sys::Proc::Helper::Inflector

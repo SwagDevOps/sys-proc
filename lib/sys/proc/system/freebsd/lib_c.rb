@@ -7,8 +7,8 @@
 # There is NO WARRANTY, to the extent permitted by law.
 
 require 'fiddle'
-require 'sys/proc/system/freebsd'
-require 'sys/proc/concern/helper'
+require_relative '../freebsd'
+require_relative '../../concern/helper'
 
 # The ``getprogname()`` and ``setprogname()`` functions manipulate
 # the name of the current program.

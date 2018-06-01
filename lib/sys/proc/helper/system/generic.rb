@@ -6,7 +6,8 @@
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-require 'sys/proc/helper/system'
+require_relative '../system'
+require_relative '../../concern/system/generic'
 
 # Provides access to ``Sys::Proc::Concerns::System::Generic`` methods
 class Sys::Proc::Helper::System::Generic
@@ -34,8 +35,6 @@ class Sys::Proc::Helper::System::Generic
   protected
 
   def system
-    require 'sys/proc/concern/system/generic'
-
     (Class.new { include Sys::Proc::Concern::System::Generic }).new
   end
 end
