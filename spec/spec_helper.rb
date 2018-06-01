@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require '%s/../lib/%s' % [__dir__, ENV.fetch('PROJECT_NAME')]
+require_relative '../lib/sys-proc'
 
 # DSL is a module that provides #host_os, etc.
 #
