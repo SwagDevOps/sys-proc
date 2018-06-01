@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files         = ['.yardopts',
                      'lib/**/*.rb',
-                     'lib/**/version_info.yml'
+                     'lib/**/version.yml'
                     ].map { |pt| Dir.glob(pt) }.flatten
 
   #{@dependencies.keep(:runtime).to_s.lstrip}
