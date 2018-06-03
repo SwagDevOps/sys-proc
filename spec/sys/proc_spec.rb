@@ -10,19 +10,19 @@ describe Sys::Proc do
 
   context '::VERSION' do
     it do
+      expect(described_class).to define_constant(:VERSION)
       expect(described_class.const_get(:VERSION)).to be_a(Sys::Proc::Version)
     end
   end
 end
 
 # instance methods are available as class methods
-[Sys::Proc.new, Sys::Proc].each do |subject|
-  describe subject do
-    { pid: 0, progname: 0, 'progname=' => 1, system: 0 }.each do |method, n|
-      it { expect(subject).to respond_to(method) }
-
-      it { expect(subject).to respond_to(method).with(n).arguments }
-    end
+describe Sys::Proc do
+  [:subject, :described_class].each do |m|
+    it { expect(public_send(m)).to respond_to(:pid).with(0).arguments }
+    it { expect(public_send(m)).to respond_to(:progname).with(0).arguments }
+    it { expect(public_send(m)).to respond_to('progname=').with(1).arguments }
+    it { expect(public_send(m)).to respond_to(:system).with(0).arguments }
   end
 end
 
