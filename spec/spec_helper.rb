@@ -3,9 +3,9 @@
 require_relative '../lib/sys-proc'
 
 [
-  :dsl,
   :pidof,
-  :matchers
+  :matchers,
+  :configure
 ].each do |req|
   require_relative '%<dir>s/%<req>s' % {
     dir: __FILE__.gsub(/\.rb$/, ''),

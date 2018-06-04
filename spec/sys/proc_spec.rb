@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'sys/proc'
-require 'securerandom'
 
 # class methods
 describe Sys::Proc do
@@ -47,16 +46,10 @@ describe '$PROGRAM_NAME' do
 end
 
 # examples based on system contexts
-self.extend RSpec::DSL
 
-if host_os =~ Regexp.union([/^linux-gnu$/,
-                            /^freebsd([0-9]+\.[0-9]+)*$/])
+if host_match?([/^linux-gnu$/, /^freebsd([0-9]+\.[0-9]+)*$/])
   context "when #{host_os}," do
     describe Sys::Proc do
-      # context '.system' do
-      #   it { expect(subject.system).to equal(:linux_gnu) }
-      # end
-
       context '.system_concern.to_s' do
         it do
           concern = {
@@ -68,20 +61,15 @@ if host_os =~ Regexp.union([/^linux-gnu$/,
         end
       end
 
-      16.times do |i|
+      Array.new(16).map { sham!(:progname).random.call }.each do |progname|
         context '.progname' do
-          let!(:progname) do
-            progname = "proc_#{SecureRandom.hex}"[0..14]
-            subject.progname = progname
-
-            progname
-          end
+          before(:each) { subject.progname = progname }
 
           it { expect(subject.progname).to eq(progname) }
 
           it { expect(subject.progname).to eq($PROGRAM_NAME) }
 
-          next if /^linux_gnu$/ !~ Sys::Proc.system.to_s
+          next unless host_match?(/^linux-gnu$/)
 
           it { expect(subject.progname).to be_running.with_pid(subject.pid) }
         end
