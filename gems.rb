@@ -30,4 +30,5 @@ end
 
 group :development, :test do
   gem 'rspec', '~> 3.7'
+  gem 'sham', '~> 2.0'
 end

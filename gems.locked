@@ -75,6 +75,7 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     rugged (0.27.1)
+    sham (2.0.0)
     tenjin (0.7.1)
     timers (4.1.2)
       hitimes
@@ -114,6 +115,7 @@ DEPENDENCIES
   redcarpet (~> 3.4)
   rspec (~> 3.7)
   rubocop (~> 0.56)
+  sham (~> 2.0)
   yard (~> 0.9)
 
 BUNDLED WITH
