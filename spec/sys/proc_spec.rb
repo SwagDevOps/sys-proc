@@ -22,6 +22,19 @@ describe Sys::Proc do
     it { expect(public_send(m)).to respond_to(:progname).with(0).arguments }
     it { expect(public_send(m)).to respond_to('progname=').with(1).arguments }
     it { expect(public_send(m)).to respond_to(:system).with(0).arguments }
+    it { expect(public_send(m)).to respond_to(:time).with(0).arguments }
+  end
+end
+
+describe Sys::Proc do
+  context '.time' do
+    it { expect(described_class.time).to be_a(Float) }
+  end
+
+  context '.time.to_i' do
+    let!(:uptime) { Process.clock_gettime(Process::CLOCK_MONOTONIC) }
+
+    it { expect(described_class.time.to_i).to eq(uptime.to_i) }
   end
 end
 
