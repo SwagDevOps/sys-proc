@@ -4,7 +4,7 @@
 source 'https://rubygems.org'
 
 group :default do
-  gem 'dry-inflector', '~> 0.1'
+  gem 'dry-inflector', '~> 0.2'
 end
 
 group :development do
