@@ -29,6 +29,6 @@ group :development, :doc, :markdown do
 end
 
 group :development, :test do
-  gem 'rspec', '~> 3.7'
+  gem 'rspec', '~> 3.10'
   gem 'sham', '~> 2.0'
 end
