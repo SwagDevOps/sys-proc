@@ -12,7 +12,7 @@ GEM
     dry-inflector (0.1.2)
     equatable (0.5.0)
     ffi (1.9.25)
-    github-markup (2.0.1)
+    github-markup (3.0.5)
     hitimes (1.3.0)
     interesting_methods (0.1.2)
     jaro_winkler (1.5.1)
@@ -108,7 +108,7 @@ PLATFORMS
 
 DEPENDENCIES
   dry-inflector (~> 0.1)
-  github-markup (~> 2.0)
+  github-markup (~> 3.0)
   interesting_methods (~> 0.1)
   kamaze-project (~> 1.0, >= 1.0.3)
   listen (~> 3.1)
