@@ -25,7 +25,7 @@ end
 
 group :development, :doc, :markdown do
   gem 'github-markup', '~> 2.0'
-  gem 'redcarpet', '~> 3.4'
+  gem 'redcarpet', '~> 3.5'
 end
 
 group :development, :test do
